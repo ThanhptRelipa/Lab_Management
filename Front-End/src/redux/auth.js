@@ -94,9 +94,11 @@ export const authActions = {
       try {
         dispatch({ type: LOGIN_REQUEST })
 
-        const data = await post(`user/login`, dataForm)
+        const data = await post(`api/login`, dataForm)
+        console.log(dataForm)
+        console.log(data)
         if (data) {
-          setCookie(STORAGEKEY.ACCESS_TOKEN, data.access_token)
+          setCookie(STORAGEKEY.ACCESS_TOKEN, data.accessToken)
         }
         dispatch({ type: LOGIN_SUCCESS, payload: data.message })
       } catch (error) {

@@ -1,12 +1,9 @@
 import React from 'react'
-import Rpoint from './Rpoint'
-import Notice from './Notice'
 
 const Home = () => {
   return (
     <>
-      <Rpoint />
-      <Notice />
+      <h1>Text</h1>
     </>
   )
 }
