@@ -1,41 +1,46 @@
 import React from 'react'
-import { Route, Router, Switch, Redirect } from 'react-router-dom'
-import App from './pages'
-import HomePage from './pages/home'
-import { createBrowserHistory } from 'history'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { STORAGEKEY } from '@/utils/storage'
-import LoginPage from './pages/login'
-import ChangePassword from './pages/user/change-pass'
-import Category from './pages/category'
-import CategoryDetail from './pages/category/detail'
-import CategoryStore from './pages/category/store'
-import Keyword from './pages/keyword'
 import { checkPermission } from '@/utils/JWT'
 import NotFoundRoute from './pages/404'
+import LoginPage from './pages/login'
+import MyLeavePage from './pages/myleave'
+import NoicePage from './pages/notice'
+import RequestsPage from './pages/requests'
+import TimesheetPage from './pages/timesheet'
+import profileContentPage from './pages/profile/profileContent'
+import profileContentUpdate from './pages/profile/profileContentUpdate'
+import Home from './pages/home'
+import RegisterLateEarly from './layouts/components/registerLateEarly'
+import EditLateEarly from './layouts/components/updateLateEarly'
+import ConfirmLateEarly from './layouts/components/confirmRegisterLateEarly'
+import RegisterOT from './layouts/components/registerOT'
+import ArticleNoticePage from './pages/articleNotice'
+import CreateNotice from './components/FormNotice/FormCreateNotice'
+// import { createBrowserHistory } from 'history'
 
-const browserHistory = createBrowserHistory()
+// const browserHistory = createBrowserHistory()
 
 const PrivateRoute = (props) => {
   const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN])
-
+  const Component = props.component
   return (
-    <Route {...props.rest} exact
-      render = {(prop) => (
+    <Route
+      {...props.rest}
+      exact
+      render={(prop) =>
         cookies[STORAGEKEY.ACCESS_TOKEN] ? (
-          <div>
-            {React.createElement(props.component, prop)}
-          </div>
+          <Component {...prop} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { redirect_url: prop.location }
+            }}
+          />
         )
-          : (
-            <Redirect
-              to={{
-                pathname: '/login',
-                state: { redirect_url: prop.location }
-              }}
-            />
-          )
-      )}
+      }
     />
   )
 }
@@ -46,22 +51,102 @@ const WhiteListRoute = (props) => {
   const isWhiteList = (path) => !cookies[STORAGEKEY.ACCESS_TOKEN] && whiteList.indexOf(path) >= 0
 
   return (
-    <Route {...props.rest} exact
-      render = {(prop) => (
-        isWhiteList(props.path)
-          ? (<div>{React.createElement(props.component, prop)}</div>)
-          : (<Redirect to={{ pathname: '/' }} />)
-      )}
+    <Route
+      {...props.rest}
+      exact
+      render={(prop) =>
+        isWhiteList(props.path) ? (
+          <div>{React.createElement(props.component, prop)}</div>
+        ) : (
+          <Redirect to={{ pathname: '/' }} />
+        )
+      }
     />
   )
 }
 
 export const appRouter = [
   {
-    name: 'Dashboard',
+    name: 'Home',
     path: '/',
-    component: App,
-    icon: 'fa fa-diamond',
+    component: Home,
+    meta: {
+      role: '*',
+      isPrivate: true,
+      hidden: false,
+      child: false
+    }
+  },
+  {
+    name: 'Profile',
+    path: '/profile',
+    component: profileContentPage,
+    meta: {
+      role: '*',
+      isPrivate: true,
+      hidden: false,
+      child: false
+    }
+  },
+  {
+    name: 'ProfileUpdate',
+    path: '/profileUpdate',
+    component: profileContentUpdate,
+    meta: {
+      role: '*',
+      isPrivate: true,
+      hidden: false,
+      child: false
+    }
+  },
+  {
+    name: 'MyLeave',
+    path: '/leave',
+    component: MyLeavePage,
+    meta: {
+      role: '*',
+      isPrivate: true,
+      hidden: false,
+      child: false
+    }
+  },
+  {
+    name: 'Notice',
+    path: '/notice',
+    component: NoicePage,
+    meta: {
+      role: '*',
+      isPrivate: true,
+      hidden: false,
+      child: false
+    }
+  },
+  {
+    name: 'Notice',
+    path: '/notice/:id',
+    component: ArticleNoticePage,
+    meta: {
+      role: '*',
+      isPrivate: true,
+      hidden: false,
+      child: false
+    }
+  },
+  {
+    name: 'Requests',
+    path: '/requests',
+    component: RequestsPage,
+    meta: {
+      role: '*',
+      isPrivate: true,
+      hidden: false,
+      child: false
+    }
+  },
+  {
+    name: 'Timesheet',
+    path: '/timesheet',
+    component: TimesheetPage,
     meta: {
       role: '*',
       isPrivate: true,
@@ -73,7 +158,6 @@ export const appRouter = [
     name: 'Login',
     path: '/login',
     component: LoginPage,
-    icon: 'fa fa-diamond',
     meta: {
       role: '*',
       isPrivate: false,
@@ -82,114 +166,70 @@ export const appRouter = [
     }
   },
   {
-    name: 'Change Password',
-    path: '/change-password',
-    component: ChangePassword,
-    icon: 'fa fa-diamond',
+    name: 'registerLateEarly',
+    path: '/registerLateEarly',
+    component: RegisterLateEarly,
+    meta: {
+      role: '*',
+      isPrivate: true,
+      hidden: true,
+      child: false
+    }
+  },
+  {
+    name: 'updateLateEarly',
+    path: '/updateLateEarly',
+    component: EditLateEarly,
+    meta: {
+      role: '*',
+      isPrivate: true,
+      hidden: true,
+      child: false
+    }
+  },
+  {
+    name: 'confirmLateEarly',
+    path: '/confirmLateEarly',
+    component: ConfirmLateEarly,
+    meta: {
+      role: '*',
+      isPrivate: true,
+      hidden: true,
+      child: false
+    }
+  },
+  {
+    name: 'registerOT',
+    path: '/registerOT',
+    component: RegisterOT,
+    meta: {
+      role: '*',
+      isPrivate: true,
+      hidden: true,
+      child: false
+    }
+  },
+  {
+    name: 'CreateNotice',
+    path: '/createNotice',
+    component: CreateNotice,
     meta: {
       role: '*',
       isPrivate: true,
       hidden: false,
       child: false
     }
-  },
-  {
-    name: 'HomePage',
-    path: '/homepage',
-    component: HomePage,
-    icon: 'fa fa-diamond',
-    meta: {
-      role: ['admin'],
-      isPrivate: true,
-      hidden: false,
-      child: false
-    }
-  },
-  {
-    name: 'Category',
-    path: '/category',
-    component: Category,
-    icon: 'fa fa-diamond',
-    meta: {
-      role: ['admin'],
-      isPrivate: true,
-      hidden: false,
-      child: true
-    },
-    children: [
-      {
-        name: 'Category Detail',
-        path: '/category/:id',
-        icon: 'fa fa-diamond',
-        component: CategoryDetail,
-        meta: {
-          role: ['admin'],
-          isPrivate: true,
-          hidden: true,
-          child: false
-        }
-      },
-      {
-        name: 'Category Store',
-        path: '/category-store',
-        icon: 'fa fa-diamond',
-        component: CategoryStore,
-        meta: {
-          role: ['admin'],
-          isPrivate: true,
-          hidden: false,
-          child: false
-        }
-      }
-    ]
-  },
-  {
-    name: 'Keyword',
-    path: '/keyword',
-    component: Keyword,
-    icon: 'fa fa-diamond',
-    meta: {
-      role: ['admin'],
-      isPrivate: true,
-      hidden: false,
-      child: true
-    },
-    children: [
-      {
-        name: 'Keyword Detail',
-        path: '/keyword/:id',
-        icon: 'fa fa-diamond',
-        component: Keyword,
-        meta: {
-          role: ['admin'],
-          isPrivate: true,
-          hidden: true,
-          child: false
-        }
-      },
-      {
-        name: 'Keyword Store',
-        path: '/keyword-store',
-        icon: 'fa fa-diamond',
-        component: Keyword,
-        meta: {
-          role: ['admin'],
-          isPrivate: true,
-          hidden: false,
-          child: false
-        }
-      }
-    ]
   }
-
 ]
 
 const renderRouter = (routes) => {
   let arr = []
-  routes.forEach(route => {
-    const tmpRoute = route.meta.isPrivate
-      ? (<PrivateRoute exact path={route.path} component={route.component} key={route.name} />)
-      : (<WhiteListRoute path={route.path} component={route.component} key={route.name} />)
+  routes.forEach((route) => {
+    const tmpRoute = route.meta.isPrivate ? (
+      <PrivateRoute exact path={route.path} component={route.component} key={route.name} />
+    ) : (
+      <WhiteListRoute path={route.path} component={route.component} key={route.name} />
+    )
     if (checkPermission(route.meta.role)) {
       arr.push(tmpRoute)
     }
@@ -207,13 +247,12 @@ const routes = () => {
 
   return (
     <div className={`main-content ${isWhiteList && 'whitelist'}`}>
-      <Router history={browserHistory}>
-        <Switch>
-          { renderRouter(appRouter).map(render => render) }
-          <PrivateRoute path='/test/:id' component={Keyword} />
-          <Route path='*' component={NotFoundRoute} />
-        </Switch>
-      </Router>
+      <Switch>
+        {renderRouter(appRouter).map((render) => render)}
+        {/* <PrivateRoute path='/test/:id' component={Keyword} /> */}
+        <PrivateRoute path='/test/:id' />
+        <Route path='*' component={NotFoundRoute} />
+      </Switch>
     </div>
   )
 }
