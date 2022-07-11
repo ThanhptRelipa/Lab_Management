@@ -95,8 +95,6 @@ export const authActions = {
         dispatch({ type: LOGIN_REQUEST })
 
         const data = await post(`api/login`, dataForm)
-        console.log(dataForm)
-        console.log(data)
         if (data) {
           setCookie(STORAGEKEY.ACCESS_TOKEN, data.accessToken)
         }
@@ -112,7 +110,7 @@ export const authActions = {
       try {
         dispatch({ type: LOGOUT_REQUEST })
 
-        const data = await get(`user/logout`)
+        const data = await get(`api/logout`)
         if (data) {
           removeCookie(STORAGEKEY.ACCESS_TOKEN)
         }

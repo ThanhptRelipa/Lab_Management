@@ -3,6 +3,8 @@ const {
   getAllUsers,
   createUser,
   loginAuthen,
+  logoutAuthen,
+  authenToken,
 } = require("../controllers/users");
 const router = express.Router();
 
@@ -33,10 +35,12 @@ const router = express.Router();
 //  *      description:Sucsessfully response
 //  *
 //  */
-router.route("/users").get(getAllUsers);
+router.route("/users").get(authenToken, getAllUsers);
 
 router.route("/users").post(createUser);
 
 router.route("/login").post(loginAuthen);
+
+router.route("/logout").post(logoutAuthen);
 
 module.exports = router;
