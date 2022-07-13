@@ -1,5 +1,6 @@
 import { setCookie, removeCookie, STORAGEKEY } from '@/utils/storage'
 import { post, get } from '@/api/BaseRequest'
+import { useHistory } from 'react-router-dom'
 
 // Contants
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
@@ -110,11 +111,8 @@ export const authActions = {
       try {
         dispatch({ type: LOGOUT_REQUEST })
 
-        const data = await get(`api/logout`)
-        if (data) {
-          removeCookie(STORAGEKEY.ACCESS_TOKEN)
-        }
-        dispatch({ type: LOGOUT_SUCCESS, payload: data })
+        removeCookie(STORAGEKEY.ACCESS_TOKEN)
+        window.location.href = '/login'
       } catch (error) {
         dispatch({ type: LOGIN_FAIL, payload: 'Logout fail' })
       }
