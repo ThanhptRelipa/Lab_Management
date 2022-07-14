@@ -1,129 +1,42 @@
-import React, { useEffect, useState } from 'react'
-import { Menu, Row, Col, Typography, Button, Modal } from 'antd'
-import { Link } from 'react-router-dom'
-import { SettingOutlined, PoweroffOutlined } from '@ant-design/icons'
-import style from './header.module.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { infoUserActions } from '../../../redux/inforUser'
+import { Avatar, Dropdown, Menu } from 'antd'
+import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBell } from '@fortawesome/free-regular-svg-icons'
 import { authActions } from '../../../redux/auth'
-import FormChangePassword from '../../../components/FormChangePassword/FormChangePassword'
+import { useDispatch } from 'react-redux'
+import style from './header.module.css'
 
-const { Title } = Typography
-const Header = () => {
+export default function Head() {
   const dispatch = useDispatch()
-  const [nameRole, setNameRole] = useState('')
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const { infoUser, successGetInfo } = useSelector((state) => state.infoUser)
-
-  const showModal = () => {
-    setIsModalVisible(true)
-  }
-
-  const handleCancel = () => {
-    setIsModalVisible(false)
-  }
-
-  useEffect(() => {
-    if (successGetInfo === true) {
-      const arrRoleId = []
-      infoUser.roles.map((role) => {
-        arrRoleId.push(role.id)
-      })
-      if (arrRoleId.includes(1) || arrRoleId.includes(2)) {
-        setNameRole('Admin')
-        return
-      }
-      if (arrRoleId.includes(3)) {
-        setNameRole('Manager')
-        return
-      }
-      if (arrRoleId.includes(4)) {
-        setNameRole('Member')
-        return
-      }
-    }
-  }, [successGetInfo])
 
   const handleLogout = async() => {
     await dispatch(authActions.logout())
     window.location.reload()
   }
 
-  useEffect(() => {
-    dispatch(infoUserActions.getInfoUser())
-  }, [])
+  const menuUser = (
+    <Menu
+      items={[
+        {
+          key: '1',
+          label: (
+            <p onClick={handleLogout}>logout</p>
+          )
+        }
+      ]}
+    />
+  )
 
   return (
     <>
-      <Row>
-        <Col span={24}>
-          <div className={style.header}>
-            <Row className={style.header_row}>
-              <Col span={12} className={style.header_title}>
-                <Title>
-                  <Link to='/'>Relipa Portal</Link>
-                </Title>
-              </Col>
-              <Col span={6} className={style.header_info}>
-                Welcome{' '}
-                <b>
-                  {infoUser?.full_name} | <span style={{ color: 'red' }}>{nameRole}</span>
-                </b>
-              </Col>
-              <Col span={6} className={style.header_nav_right}>
-                <Menu style={{ border: 'none' }} mode='horizontal'>
-                  <Menu.Item
-                    style={{ display: 'flex', alignItems: 'center' }}
-                    key='changepass'
-                    icon={<SettingOutlined />}
-                  >
-                    <a onClick={showModal}>
-                      Change Password
-                    </a>
-                    <Modal title='Change Password' onCancel={handleCancel} footer={false} visible={isModalVisible}>
-                      <FormChangePassword onCancel={handleCancel}/>
-                    </Modal>
-                  </Menu.Item>
-                  <Menu.Item
-                    onClick={handleLogout}
-                    style={{ display: 'flex', alignItems: 'center' }}
-                    key='logout'
-                    icon={<PoweroffOutlined />}
-                  >
-                    Log out
-                  </Menu.Item>
-                </Menu>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={24}>
-                <Menu style={{ border: 'none' }} mode='horizontal'>
-                  <Menu.Item key='home'>
-                    <Link to='/'>Home</Link>
-                  </Menu.Item>
-                  <Menu.Item key='profile'>
-                    <Link to='/profile'>Profile</Link>
-                  </Menu.Item>
-                  <Menu.Item key='timesheet'>
-                    <Link to='/timesheet'>Timesheet</Link>
-                  </Menu.Item>
-                  <Menu.Item key='leave'>
-                    <Link to='/leave'>My Leave</Link>
-                  </Menu.Item>
-                  <Menu.Item disabled={nameRole === 'Member'} key='requests'>
-                    <Link to='/requests'>Request</Link>
-                  </Menu.Item>
-                  <Menu.Item disabled={nameRole === 'Member' || nameRole === 'Manager'} key='Notice'>
-                    <Link to='/notice'>Notice</Link>
-                  </Menu.Item>
-                </Menu>
-              </Col>
-            </Row>
-          </div>
-        </Col>
-      </Row>
+      {/* <Text className='notification'>03</Text> */}
+      <FontAwesomeIcon className={style.icon} icon={faBell} />
+      <Dropdown overlay={menuUser} arrow>
+        <Avatar
+          className={style.avatar}
+          src='https://scontent.fhph2-1.fna.fbcdn.net/v/t39.30808-6/226396345_112714520999473_4823512747928449349_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=r1Gv66ilVM8AX_X-P0B&_nc_ht=scontent.fhph2-1.fna&oh=00_AT_TedsQ2ajuyXa5zwpHSAfcWKK5gNA3vR0dGSVP3BhjNw&oe=6265FB83'
+        />
+      </Dropdown>
     </>
   )
 }
-
-export default Header

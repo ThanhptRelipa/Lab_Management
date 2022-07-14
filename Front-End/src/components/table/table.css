@@ -1,0 +1,11 @@
+.customTable {
+    margin: auto;
+    margin-bottom: 50px;
+}
+.ant-table {
+    border: #dadcde 1px solid;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 1px 1px rgb(218 220 222 / 70%)
+}
+
