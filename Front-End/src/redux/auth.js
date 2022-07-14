@@ -1,6 +1,5 @@
 import { setCookie, removeCookie, STORAGEKEY } from '@/utils/storage'
 import { post, get } from '@/api/BaseRequest'
-import { useHistory } from 'react-router-dom'
 
 // Contants
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'

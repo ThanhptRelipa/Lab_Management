@@ -30,18 +30,3 @@ exports.loginAuthen = async (req, res, next) => {
     accessToken,
   });
 };
-
-exports.authenToken = async (req, res, next) => {
-  const authorization = req.headers["authorization"];
-  const token = authorization.split(" ")[1];
-  if (!token) res.sendStatus(401);
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
-    if (err) res.sendStatus(403);
-    next();
-  });
-};
-
-exports.logoutAuthen = async (req, res, next) => {
-  const refreshToken = req.body.token;
-  refreshToken.filter();
-};

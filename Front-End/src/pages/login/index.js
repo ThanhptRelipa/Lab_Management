@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
-import style from './login.module.css'
+import './login.css'
 import { Form, Input, Button, Typography } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { authActions } from '../../redux/auth'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { Link } from 'react-router-dom'
 
 const { Title } = Typography
 const LoginPage = () => {
@@ -30,12 +31,12 @@ const LoginPage = () => {
   const onFinishFailed = (errorInfo) => {}
 
   return (
-    <div className={style.wrapper}>
-      <Title className={style.title_form}>
-        <span className={style.title_form}>Relipa Portal</span>
+    <div className='wrapper'>
+      <Title className='title_form'>
+        <span className='title_form'>LabRoom TLU</span>
       </Title>
       <Form
-        className={style.form_login}
+        className='form_login'
         name='basic'
         labelCol={{
           span: 8
@@ -51,20 +52,20 @@ const LoginPage = () => {
         autoComplete='off'
       >
         <Form.Item
-          className={style.form_item}
+          className='form_item'
           name='username'
           rules={[
             {
-              required: true,
-              message: 'Please input your email!'
+              pattern: new RegExp('^[a-z\d\.-]+@thanglong\.edu\.vn$'),
+              message: 'Wrong form'
             }
           ]}
         >
-          <Input className={style.item_input} placeholder='Username' />
+          <Input className='item_input' placeholder='Username@thanglong.edu.vn' />
         </Form.Item>
 
         <Form.Item
-          className={style.form_item}
+          className='form_item'
           name='password'
           rules={[
             {
@@ -73,15 +74,18 @@ const LoginPage = () => {
             }
           ]}
         >
-          <Input.Password className={style.item_input} placeholder='Password' />
+          <Input.Password className='item_input' placeholder='Password' />
         </Form.Item>
 
-        <div className={style.form_item}>
+        <div>
           <Form.Item>
-            <Button className={style.item_input} loading={loadingLogin} type='primary' htmlType='submit'>
-              Đăng nhập
+            <Button className='item_input' loading={loadingLogin} type='primary' htmlType='submit'>
+              Login
             </Button>
           </Form.Item>
+        </div>
+        <div>
+          <Link to='/register'>Register, Don't have account!</Link>
         </div>
       </Form>
       <ToastContainer />
