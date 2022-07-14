@@ -10,7 +10,7 @@ import NoicePage from './pages/notice'
 import RequestsPage from './pages/requests'
 import TimesheetPage from './pages/timesheet'
 import profileContentPage from './pages/profile/profileContent'
-import profileContentUpdate from './pages/profile/profileContentUpdate'
+import LabSchedule from './layouts/components/Lab schedule'
 import Home from './pages/home'
 import RegisterLateEarly from './layouts/components/registerLateEarly'
 import EditLateEarly from './layouts/components/updateLateEarly'
@@ -18,6 +18,9 @@ import ConfirmLateEarly from './layouts/components/confirmRegisterLateEarly'
 import RegisterOT from './layouts/components/registerOT'
 import ArticleNoticePage from './pages/articleNotice'
 import CreateNotice from './components/FormNotice/FormCreateNotice'
+import ListDevices from './layouts/components/List devices'
+import CreateSchedule from './pages/user/create schedule'
+import RegisterBorrow from './pages/user/registerBorrow'
 // import { createBrowserHistory } from 'history'
 
 // const browserHistory = createBrowserHistory()
@@ -58,7 +61,7 @@ const WhiteListRoute = (props) => {
         isWhiteList(props.path) ? (
           <div>{React.createElement(props.component, prop)}</div>
         ) : (
-          <Redirect to={{ pathname: '/' }} />
+          <Redirect to={{ pathname: '/dashboard' }} />
         )
       }
     />
@@ -68,7 +71,7 @@ const WhiteListRoute = (props) => {
 export const appRouter = [
   {
     name: 'Home',
-    path: '/',
+    path: '/dashboard',
     component: Home,
     meta: {
       role: '*',
@@ -89,9 +92,9 @@ export const appRouter = [
     }
   },
   {
-    name: 'ProfileUpdate',
-    path: '/profileUpdate',
-    component: profileContentUpdate,
+    name: 'LabSchedule',
+    path: '/lab-schedule',
+    component: LabSchedule,
     meta: {
       role: '*',
       isPrivate: true,
@@ -100,9 +103,9 @@ export const appRouter = [
     }
   },
   {
-    name: 'MyLeave',
-    path: '/leave',
-    component: MyLeavePage,
+    name: 'ListDevices',
+    path: '/list-devices',
+    component: ListDevices,
     meta: {
       role: '*',
       isPrivate: true,
@@ -111,9 +114,9 @@ export const appRouter = [
     }
   },
   {
-    name: 'Notice',
-    path: '/notice',
-    component: NoicePage,
+    name: 'CreateSchedule',
+    path: '/register-to-use',
+    component: CreateSchedule,
     meta: {
       role: '*',
       isPrivate: true,
@@ -122,31 +125,9 @@ export const appRouter = [
     }
   },
   {
-    name: 'Notice',
-    path: '/notice/:id',
-    component: ArticleNoticePage,
-    meta: {
-      role: '*',
-      isPrivate: true,
-      hidden: false,
-      child: false
-    }
-  },
-  {
-    name: 'Requests',
-    path: '/requests',
-    component: RequestsPage,
-    meta: {
-      role: '*',
-      isPrivate: true,
-      hidden: false,
-      child: false
-    }
-  },
-  {
-    name: 'Timesheet',
-    path: '/timesheet',
-    component: TimesheetPage,
+    name: 'RegisterBorrow',
+    path: '/register-to-borrow',
+    component: RegisterBorrow,
     meta: {
       role: '*',
       isPrivate: true,
@@ -162,61 +143,6 @@ export const appRouter = [
       role: '*',
       isPrivate: false,
       hidden: true,
-      child: false
-    }
-  },
-  {
-    name: 'registerLateEarly',
-    path: '/registerLateEarly',
-    component: RegisterLateEarly,
-    meta: {
-      role: '*',
-      isPrivate: true,
-      hidden: true,
-      child: false
-    }
-  },
-  {
-    name: 'updateLateEarly',
-    path: '/updateLateEarly',
-    component: EditLateEarly,
-    meta: {
-      role: '*',
-      isPrivate: true,
-      hidden: true,
-      child: false
-    }
-  },
-  {
-    name: 'confirmLateEarly',
-    path: '/confirmLateEarly',
-    component: ConfirmLateEarly,
-    meta: {
-      role: '*',
-      isPrivate: true,
-      hidden: true,
-      child: false
-    }
-  },
-  {
-    name: 'registerOT',
-    path: '/registerOT',
-    component: RegisterOT,
-    meta: {
-      role: '*',
-      isPrivate: true,
-      hidden: true,
-      child: false
-    }
-  },
-  {
-    name: 'CreateNotice',
-    path: '/createNotice',
-    component: CreateNotice,
-    meta: {
-      role: '*',
-      isPrivate: true,
-      hidden: false,
       child: false
     }
   }

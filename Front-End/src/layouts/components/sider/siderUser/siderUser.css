@@ -1,0 +1,43 @@
+.sider__navbar-wrapper {
+    margin: 10px 0;
+}
+
+.sider__navbar-wrapper .ant-card-head {
+    border: none;
+    padding: 0 20px;
+}
+
+.sider__navbar-wrapper .ant-card-head-wrapper {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.sider__navbar-wrapper .ant-card-body {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sider__nav-content {
+    padding: 10px 0 10px 32px;
+    color: #a5a5a5;
+    text-decoration: none;
+}
+
+.sider__nav-content-active {
+    color: #fff;
+    background-color: #377DFF;
+    margin: 0 16px;
+    padding: 10px 0 10px 16px;
+    border-radius: 10px;
+}
+
+.sider__nav-content-active:hover {
+    color: #fff;
+}
+
+.sider__nav-content .sider__nav-icon,
+.sider__nav-content-active .sider__nav-icon {
+    margin-right: 4px;
+}
+

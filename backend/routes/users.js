@@ -41,6 +41,6 @@ router.route("/users").post(createUser);
 
 router.route("/login").post(loginAuthen);
 
-router.route("/logout").post(logoutAuthen);
+// router.route("/logout").post(logoutAuthen);
 
 module.exports = router;

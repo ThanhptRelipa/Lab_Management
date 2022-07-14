@@ -1,0 +1,10 @@
+/* calendar */
+.calendar {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 1px 1px rgb(218 220 222 / 70%)
+
+}

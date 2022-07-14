@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../layouts/components/header/index'
-import style from './App.module.css'
+import { Layout } from 'antd'
+import Head from '../layouts/components/header/index'
+import SideBar from './components/sider/sider'
 import { useDispatch, useSelector } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { STORAGEKEY } from '@/utils/storage'
 import { getInfoUser } from '../redux/inforUser'
+import style from './App.module.css'
 
+const { Sider, Header, Content } = Layout
 const App = (props) => {
   const dispatch = useDispatch()
   const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN])
@@ -32,10 +35,19 @@ const App = (props) => {
   }, [])
 
   return (
-    <div className={style.wrapper}>
-      {hiddenMenu && <Header />}
-      <div className={style.main}>{renderRouter()}</div>
-    </div>
+    <Layout>
+      {hiddenMenu && <Sider className={style.sider}>
+        <SideBar />
+      </Sider>}
+      <Layout>
+        {hiddenMenu && <Header className={style.header}>
+          <Head />
+        </Header>}
+        <Content style={{ overflow: 'hidden' }}>
+          {renderRouter()}
+        </Content>
+      </Layout>
+    </Layout>
   )
 }
 
