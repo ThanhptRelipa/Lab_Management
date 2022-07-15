@@ -51,7 +51,7 @@ const WhiteListRoute = (props) => {
         isWhiteList(props.path) ? (
           <div>{React.createElement(props.component, prop)}</div>
         ) : (
-          <Redirect to={{ pathname: '/dashboard' }} />
+          <Redirect to={{ pathname: '/' }} />
         )
       }
     />
@@ -61,7 +61,7 @@ const WhiteListRoute = (props) => {
 export const appRouter = [
   {
     name: 'Home',
-    path: '/dashboard',
+    path: '/',
     component: Home,
     meta: {
       role: '*',
