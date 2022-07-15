@@ -11,6 +11,7 @@ import Home from './pages/home'
 import ListDevices from './layouts/components/List devices'
 import CreateSchedule from './pages/user/create schedule'
 import RegisterBorrow from './pages/user/registerBorrow'
+import RegisterPage from './pages/register'
 // import { createBrowserHistory } from 'history'
 
 // const browserHistory = createBrowserHistory()
@@ -39,7 +40,7 @@ const PrivateRoute = (props) => {
 }
 
 const WhiteListRoute = (props) => {
-  const whiteList = ['/login', '/forget-password']
+  const whiteList = ['/login', '/register', '/forget-password']
   const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN])
   const isWhiteList = (path) => !cookies[STORAGEKEY.ACCESS_TOKEN] && whiteList.indexOf(path) >= 0
 
@@ -51,7 +52,7 @@ const WhiteListRoute = (props) => {
         isWhiteList(props.path) ? (
           <div>{React.createElement(props.component, prop)}</div>
         ) : (
-          <Redirect to={{ pathname: '/' }} />
+          <Redirect to={{ pathname: '/login' }} />
         )
       }
     />
@@ -135,6 +136,17 @@ export const appRouter = [
       hidden: true,
       child: false
     }
+  },
+  {
+    name: 'Register',
+    path: '/register',
+    component: RegisterPage,
+    meta: {
+      role: '*',
+      isPrivate: false,
+      hidden: true,
+      child: false
+    }
   }
 ]
 
@@ -157,10 +169,9 @@ const renderRouter = (routes) => {
 }
 
 const routes = () => {
-  const whiteList = ['/login', '/forget-password']
+  const whiteList = ['/login', '/register', '/forget-password']
   const path = window.location.pathname
-  const isWhiteList = whiteList.indexOf(path) >= 0
-
+  const isWhiteList = whiteList.includes(path)
   return (
     <div className={`main-content ${isWhiteList && 'whitelist'}`}>
       <Switch>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Pagination, Table, Typography } from 'antd'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { notice } from '../../redux/officialNotice'
 import { Link } from 'react-router-dom'
 import 'antd/dist/antd.css'
@@ -9,7 +9,7 @@ import style from './home.module.css'
 const Notice = () => {
   const [param, setParam] = useState(1)
   const dispatch = useDispatch()
-  const { data, loading } = useSelector((state) => state.notices)
+  const data = []
 
   useEffect(() => {
     dispatch(notice.getNoticeData(param))
@@ -66,7 +66,11 @@ const Notice = () => {
       title: 'Detail',
       dataIndex: 'detail',
       key: 'detail',
-      render: (text) => <Link to='/notice/1' className={style.detal}>{text}</Link>
+      render: (text) => (
+        <Link to='/notice/1' className={style.detal}>
+          {text}
+        </Link>
+      )
     }
   ]
   const dataSource = data?.data?.map((item) => {
@@ -93,7 +97,7 @@ const Notice = () => {
         rowKey='id'
         dataSource={dataSource}
         columns={columns}
-        loading={loading}
+        loading={true}
         pagination={false}
       />
       <Pagination

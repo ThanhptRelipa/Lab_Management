@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Table, Pagination } from 'antd'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Select } from 'antd'
 import { rpoint } from '../../redux/home'
 import moment from 'moment'
@@ -10,11 +10,7 @@ const Rpoint = () => {
   const { Option } = Select
   const [pages, setPages] = useState(1)
   const dispatch = useDispatch()
-  const { data, loading } = useSelector((state) => state.rpoint)
-
-  // const total = data?.data?.reduce((result, prod) => {
-  //   return result + prod.point
-  // }, 0)
+  const data = []
 
   useEffect(() => {
     dispatch(rpoint.getRpointApi(pages))
@@ -99,10 +95,16 @@ const Rpoint = () => {
         dataSource={dataSource}
         columns={columns}
         onChange={onChange}
-        loading={loading}
+        loading={true}
         pagination={false}
       />
-      <Pagination className={style.pagination} pageSize={5} total={data?.total} current={pages} onChange={handlePageClick} />
+      <Pagination
+        className={style.pagination}
+        pageSize={5}
+        total={data?.total}
+        current={pages}
+        onChange={handlePageClick}
+      />
       <p className={style.l_total}>
         Total numbers of records:
         <label className={style.l_name}>{data?.total}</label>
