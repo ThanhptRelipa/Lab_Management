@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
-import './login.css'
 import { Form, Input, Button, Typography } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { authActions } from '../../redux/auth'
 import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
+import { authActions } from '../../redux/auth'
+import 'react-toastify/dist/ReactToastify.css'
+import './login.css'
 
 const { Title } = Typography
 const LoginPage = () => {
@@ -32,9 +33,7 @@ const LoginPage = () => {
 
   return (
     <div className='wrapper'>
-      <Title className='title_form'>
-        <span className='title_form'>LabRoom TLU</span>
-      </Title>
+      <div className='bg_img'></div>
       <Form
         className='form_login'
         name='basic'
@@ -51,33 +50,47 @@ const LoginPage = () => {
         onFinishFailed={onFinishFailed}
         autoComplete='off'
       >
-        <Form.Item
-          className='form_item'
-          name='username'
-          rules={[
-            {
-              pattern: new RegExp('^[a-z\d\.-]+@thanglong\.edu\.vn$'),
-              message: 'Wrong form'
-            }
-          ]}
-        >
-          <Input className='item_input' placeholder='Username@thanglong.edu.vn' />
-        </Form.Item>
+        <Title className='title_form'>
+          <span className='title_form'>LabRoom TLU</span>
+        </Title>
 
-        <Form.Item
-          className='form_item'
-          name='password'
-          rules={[
-            {
-              required: true,
-              message: 'Please input your password!'
-            }
-          ]}
-        >
-          <Input.Password className='item_input' placeholder='Password' />
-        </Form.Item>
+        <div className='login'>
+          <Form.Item
+            className='form_item'
+            name='username'
+            rules={[
+              {
+                pattern: new RegExp('^[a-zd.-]+@thanglong.edu.vn$'),
+                message: 'Wrong form'
+              }
+            ]}
+            hasFeedback
+          >
+            <Input
+              prefix={<UserOutlined className='site-form-item-icon' />}
+              className='item_input'
+              placeholder='Username@thanglong.edu.vn'
+            />
+          </Form.Item>
 
-        <div>
+          <Form.Item
+            className='form_item'
+            name='password'
+            rules={[
+              {
+                required: true,
+                message: 'Please input your password!'
+              }
+            ]}
+            hasFeedback
+          >
+            <Input.Password
+              prefix={<LockOutlined className='site-form-item-icon' />}
+              className='item_input'
+              placeholder='Password'
+            />
+          </Form.Item>
+
           <Form.Item>
             <Button className='item_input' loading={loadingLogin} type='primary' htmlType='submit'>
               Login
