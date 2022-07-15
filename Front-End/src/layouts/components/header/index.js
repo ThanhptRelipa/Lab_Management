@@ -1,17 +1,15 @@
 import { Avatar, Dropdown, Menu } from 'antd'
+import { LogoutOutlined } from '@ant-design/icons'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell } from '@fortawesome/free-regular-svg-icons'
-import { authActions } from '../../../redux/auth'
-import { useDispatch } from 'react-redux'
+import { faBell, faEnvelope } from '@fortawesome/free-regular-svg-icons'
 import style from './header.module.css'
+import { STORAGEKEY, removeCookie } from '../../../utils/storage'
 
 export default function Head() {
-  const dispatch = useDispatch()
-
   const handleLogout = async() => {
-    await dispatch(authActions.logout())
-    window.location.reload()
+    await removeCookie(STORAGEKEY.ACCESS_TOKEN)
+    window.location.href = '/login'
   }
 
   const menuUser = (
@@ -19,9 +17,8 @@ export default function Head() {
       items={[
         {
           key: '1',
-          label: (
-            <p onClick={handleLogout}>logout</p>
-          )
+          label: <p onClick={handleLogout}>logout</p>,
+          icon: <LogoutOutlined />
         }
       ]}
     />
@@ -31,6 +28,7 @@ export default function Head() {
     <>
       {/* <Text className='notification'>03</Text> */}
       <FontAwesomeIcon className={style.icon} icon={faBell} />
+      <FontAwesomeIcon className={style.icon} icon={faEnvelope} />
       <Dropdown overlay={menuUser} arrow>
         <Avatar
           className={style.avatar}

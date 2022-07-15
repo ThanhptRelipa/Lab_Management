@@ -8,7 +8,7 @@ const {
 } = require("../controllers/users");
 const router = express.Router();
 
-router.route("/users").get(authenToken, getAllUsers);
+router.route("/users").get(getAllUsers);
 
 router.route("/users").post(createUser);
 

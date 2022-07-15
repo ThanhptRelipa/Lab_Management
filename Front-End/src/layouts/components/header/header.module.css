@@ -2,10 +2,12 @@
   margin-left: 16px;
 }
 .icon {
-  font-size: 30px;
+  font-size: 15px;
   position: relative;
+  margin: 0 10px;
 }
 
 .avatar {
   border: #000 1px solid;
+  margin-left: 10px;
 }

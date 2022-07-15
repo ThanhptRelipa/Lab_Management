@@ -4,6 +4,7 @@ import './assets/css/index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 import router from './routers.js'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { CookiesProvider } from 'react-cookie'
 import AppLayout from './layouts/App'
 import 'antd/dist/antd.css'
@@ -12,16 +13,20 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './redux/store/store'
 
+const queryClient = new QueryClient()
+
 const browserHistory = createBrowserHistory()
 const App = () => {
   return (
-    <Provider store={store}>
-      <CookiesProvider>
-        <Router history={browserHistory}>
-          <AppLayout renderRouter={router} />
-        </Router>
-      </CookiesProvider>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <CookiesProvider>
+          <Router history={browserHistory}>
+            <AppLayout renderRouter={router} />
+          </Router>
+        </CookiesProvider>
+      </Provider>
+    </QueryClientProvider>
   )
 }
 
