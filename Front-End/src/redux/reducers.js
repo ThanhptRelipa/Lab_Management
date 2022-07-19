@@ -1,3 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
-export default combineReducers({})
+import UserInfoSlice from './slices/UserInfoSlice'
+
+export default combineReducers({
+  userInfo: UserInfoSlice
+})

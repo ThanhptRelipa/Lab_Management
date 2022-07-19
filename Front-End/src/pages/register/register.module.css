@@ -28,9 +28,14 @@
   border: 1px solid transparent;
   box-shadow: 8px 8px 8px #666;
   background-color: whitesmoke;
-  height: 40vw;
+  min-height: 40vw;
   border-radius: 10px;
 }
+
+.wrapper_title_form {
+  margin-top: 20;
+}
+
 .title_form {
   font-weight: 800;
   color: rgb(64, 169, 255);
@@ -47,7 +52,11 @@
 .form_item {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 20px;
   align-items: center;
   width: 500px;
+}
+.item_input {
+  text-transform: lowercase;
+  height: 42;
 }

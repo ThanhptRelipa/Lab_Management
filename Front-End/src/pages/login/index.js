@@ -66,11 +66,11 @@ const LoginPage = () => {
         <div className={styles.login}>
           <Form.Item
             className={styles.form_item}
-            name='username'
+            name='email'
             rules={[
               {
                 required: true,
-                pattern: new RegExp(`^[A-Za-zd.-]+@thanglong\.edu\.vn$`),
+                pattern: new RegExp(`^[A-Za-zd.0-9-]+@thanglong\.edu\.vn$`),
                 message: 'Please input your username!'
               }
             ]}
@@ -109,7 +109,7 @@ const LoginPage = () => {
           </Form.Item>
         </div>
         <div>
-          <Link to='/register'>{`Register, Don't have account!`}</Link>
+          <Link to='/register'>{`Register, Don't have an account!`}</Link>
         </div>
       </Form>
       <ToastContainer

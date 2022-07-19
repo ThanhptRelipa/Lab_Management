@@ -1,17 +1,14 @@
-const express = require("express");
-const {
-  getAllUsers,
-  createUser,
-  loginAuthen,
-  logoutAuthen,
-  authenToken,
-} = require("../controllers/users");
+import express from "express";
+import * as UserController from "../controllers/users";
+
 const router = express.Router();
 
-router.route("/users").get(getAllUsers);
+router.route("/users").get(UserController.getAllUsers);
 
-router.route("/users").post(createUser);
+router.route("/userInfo").get(UserController.getUserInfo);
 
-router.route("/login").post(loginAuthen);
+router.route("/login").post(UserController.loginAuthen);
 
-module.exports = router;
+router.route("/register").post(UserController.registerAuthen);
+
+export default router;

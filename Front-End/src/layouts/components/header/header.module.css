@@ -11,3 +11,8 @@
   border: #000 1px solid;
   margin-left: 10px;
 }
+
+.headerRight {
+  display: flex;
+  align-items: center;
+}
