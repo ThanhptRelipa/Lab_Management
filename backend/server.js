@@ -1,13 +1,24 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const swaggerJsDoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
+import express from "express";
+import mongoose from "mongoose";
+import swaggerJsDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
+import cors from "cors";
 
+import user from "./routes/users";
+import category from "./routes/category";
+import product from "./routes/product";
+import { verifyToken } from "./middleware/tokenMiddle";
+
+import dotenv from "dotenv";
+
+dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use((error, req, res, next) => {
+  console.log(error);
+  return res.sendStatus(500);
+});
 
 //config swagger
 const options = {
@@ -30,7 +41,6 @@ const options = {
 const swaggerDocs = swaggerJsDoc(options);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 //config env
-dotenv.config();
 
 //database
 mongoose
@@ -39,9 +49,6 @@ mongoose
 
 //router
 
-const category = require("./routes/category");
-const product = require("./routes/product");
-const user = require("./routes/users");
 app.use("/api", category);
 app.use("/api", product);
 app.use("/api", user);

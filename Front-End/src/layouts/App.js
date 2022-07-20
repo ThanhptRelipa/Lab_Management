@@ -1,34 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { Layout } from 'antd'
-import Head from '../layouts/components/header/index'
-import SideBar from './components/sider/sider'
-import Login from '../pages/login'
 import { useCookies } from 'react-cookie'
+import { useDispatch, useSelector } from 'react-redux'
+
+import Head from '../layouts/components/header/index'
+import { userInfo } from '../redux/slices/UserInfoSlice'
+import SideBar from './components/sider/sider'
 import { STORAGEKEY } from '@/utils/storage'
-import style from './App.module.css'
+import styles from './App.module.css'
 
 const { Sider, Header, Content } = Layout
+
 const App = (props) => {
-  // const dispatch = useDispatch()
   const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN])
-  const { renderRouter } = props
   const [hiddenMenu, setHiddenMenu] = useState(false)
-
-  // useEffect(() => {
-  //   if (successLogin === true) {
-  //     setHiddenMenu(true)
-  //   }
-  // }, [successLogin])
-
-  // useEffect(() => {
-  //   if (successLogout === true) {
-  //     setHiddenMenu(false)
-  //   }
-  // }, [successLogout])
+  const dispatch = useDispatch()
+  const { renderRouter } = props
 
   useEffect(() => {
     if (cookies[STORAGEKEY.ACCESS_TOKEN]) {
       setHiddenMenu(true)
+      dispatch(userInfo(`email=a@thanglong.edu.vn`))
     }
   }, [])
 
@@ -36,17 +28,27 @@ const App = (props) => {
     <>
       <Layout>
         {hiddenMenu && (
-          <Sider className={style.sider}>
+          <Sider className={styles.sider}>
             <SideBar />
           </Sider>
         )}
         <Layout>
           {hiddenMenu && (
-            <Header className={style.header}>
+            <Header className={styles.header}>
+              <div className={styles.headerLeft}>
+                <text>Welcome,</text>
+                <text style={{ fontWeight: 'bold', marginLeft: 5 }} level={5}>
+                  Thanh Pham
+                </text>
+              </div>
               <Head />
             </Header>
           )}
-          <Content style={{ overflow: 'hidden', padding: '0 0' }}>{renderRouter()}</Content>
+          <Content
+            style={hiddenMenu ? { overflow: 'hidden', padding: '0 15px' } : { overflow: 'hidden', padding: '0 0px' }}
+          >
+            {renderRouter()}
+          </Content>
         </Layout>
       </Layout>
     </>
