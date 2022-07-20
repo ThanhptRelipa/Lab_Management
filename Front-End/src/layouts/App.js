@@ -8,6 +8,7 @@ import { userInfo } from '../redux/slices/UserInfoSlice'
 import SideBar from './components/sider/sider'
 import { STORAGEKEY } from '@/utils/storage'
 import styles from './App.module.css'
+import Clock from './components/Clock'
 
 const { Sider, Header, Content } = Layout
 
@@ -15,15 +16,15 @@ const App = (props) => {
   const [cookies] = useCookies([STORAGEKEY.ACCESS_TOKEN])
   const [hiddenMenu, setHiddenMenu] = useState(false)
   const dispatch = useDispatch()
+  const { userData } = useSelector((state) => state.userInfo)
   const { renderRouter } = props
 
   useEffect(() => {
     if (cookies[STORAGEKEY.ACCESS_TOKEN]) {
       setHiddenMenu(true)
-      dispatch(userInfo(`email=a@thanglong.edu.vn`))
+      dispatch(userInfo({ email: 'a@thanglong.edu.vn' }))
     }
   }, [])
-
   return (
     <>
       <Layout>
@@ -38,9 +39,10 @@ const App = (props) => {
               <div className={styles.headerLeft}>
                 <text>Welcome,</text>
                 <text style={{ fontWeight: 'bold', marginLeft: 5 }} level={5}>
-                  Thanh Pham
+                  {userData.lastName} {userData.firstName}
                 </text>
               </div>
+              <Clock />
               <Head />
             </Header>
           )}

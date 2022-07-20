@@ -72,17 +72,6 @@ export const appRouter = [
     }
   },
   {
-    name: 'Profile',
-    path: '/profile',
-    component: profileContentPage,
-    meta: {
-      role: '*',
-      isPrivate: true,
-      hidden: false,
-      child: false
-    }
-  },
-  {
     name: 'LabSchedule',
     path: '/lab-schedule',
     component: LabSchedule,

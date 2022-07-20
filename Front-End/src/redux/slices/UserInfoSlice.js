@@ -2,8 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { get } from '../../api/BaseRequest'
 
 export const userInfo = createAsyncThunk('api/userInfo', async(params) => {
-  const { data } = await get(`api/userInfo?${params}`)
-  console.log(data)
+  const { user: data } = await get(`api/userInfo`, params)
   return data
 })
 
