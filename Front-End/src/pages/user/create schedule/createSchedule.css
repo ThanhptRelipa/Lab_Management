@@ -6,10 +6,8 @@
 
 /* Form Create */
 .form-create {
-    margin: auto;
-    margin-top: 50px;
-    margin-bottom: 30px;
-    padding: 20px 16px;
+    margin: 50px 30px 30px;
+    padding: 20px 30px;
     border-radius: 20px;
     background-color: #fff;
 }
@@ -53,4 +51,14 @@
 
 .form__row-input .ant-picker input:placeholder-shown {
     font-weight: 500;
+}
+.ant-btn {
+    border-radius: 6px !important;
+}
+
+/* css users*/
+.textCode {
+    margin-left: 10px;
+    font-weight: bold;
+    color: black;
 }

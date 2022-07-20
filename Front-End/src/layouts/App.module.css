@@ -17,3 +17,18 @@
   display: flex;
   align-items: center;
 }
+
+.wrapperTimer {
+  border: 1px solid #377dff;
+  padding: 0 15px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9px;
+}
+
+.timer {
+  color: #377dff;
+  font-size: 20px;
+}
