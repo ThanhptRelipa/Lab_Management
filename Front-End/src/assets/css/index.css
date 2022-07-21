@@ -3,3 +3,14 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+.btn_form {
+  width: 20em;
+  height: 42px !important;
+  border-radius: 23px !important;
+}
+
+.item_input_form {
+  height: 50px;
+  border-radius: 23px !important;
+}

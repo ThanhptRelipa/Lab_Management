@@ -1,16 +1,13 @@
-.wrapper {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+.wrapperRegister {
   height: 100vh;
   width: 100vw;
   position: relative;
 }
-.bg_img {
-  background-image: url("https://thanglong.edu.vn/sites/default/files/2020-05/facilities-top-01.jpg");
+.bg_img_register {
+  background-image: url("https://1.bp.blogspot.com/-ZS-og_UAZzU/YQyOFYM_yxI/AAAAAAAAGOM/x5bU_0GaePEbOb9spAwIyCkF7vccB5G6ACLcBGAsYHQ/w0/20-dieu-thu-vi-ve-truong-dai-hoc-thang-long.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  /* background-position: center; */
   position: absolute;
   top: 0;
   left: 0;
@@ -18,7 +15,7 @@
   height: 100%;
   opacity: 0.5;
 }
-.form_login {
+.form_register {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -31,43 +28,24 @@
   border: 1px solid transparent;
   box-shadow: 8px 8px 8px #666;
   background-color: whitesmoke;
-  height: 40vw;
+  min-height: 40vw;
   border-radius: 10px;
 }
 
-.form_item {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-  align-items: center;
-  width: 500px;
-}
-.title_form {
-  font-weight: 800;
-  color: rgb(64, 169, 255);
-  justify-content: center;
-  align-items: center;
-}
-.item_input {
-  height: 40px;
-  width: 150px;
+.wrapper_title_form {
+  margin-top: 20;
 }
 
-.login {
+.register {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.form_option {
+.form_item_register {
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 500px;
-}
-
-.selectOption {
-  display: flex;
+  margin-top: 20px;
   align-items: center;
-  justify-content: space-between;
+  width: 500px;
 }
