@@ -28,7 +28,7 @@ const RegisterPage = () => {
     setCheckPhones(e.target.value.charAt(0) === '0')
   }
 
-  const postRegister = async (data) => {
+  const postRegister = async(data) => {
     return await post(`api/register`, data)
   }
 
@@ -81,7 +81,7 @@ const RegisterPage = () => {
     const registerData = {
       ...values,
       phone: values.phone.charAt(0) === '0' ? values.phone : `0${values.phone}`,
-      avatarUrl: avatarUrl,
+      avatarUrl: avatarUrl
     }
 
     postRegisterAPI(registerData)
@@ -102,7 +102,7 @@ const RegisterPage = () => {
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
       <div
         style={{
-          marginTop: 8,
+          marginTop: 8
         }}
       >
         Upload
@@ -111,12 +111,12 @@ const RegisterPage = () => {
   )
 
   return (
-    <div className="wrapperRegister">
-      <div className="bg_img_register"></div>
+    <div className='wrapperRegister'>
+      <div className='bg_img_register'></div>
       <Form
-        className="form_register"
-        name="basic"
-        encType="multipart/form-data"
+        className='form_register'
+        name='basic'
+        encType='multipart/form-data'
         labelCol={{
           span: 8,
         }}
@@ -130,116 +130,116 @@ const RegisterPage = () => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <Col className="col-left">
+        <Col className='col-left'>
           <Title style={{ marginTop: 20 }}>
-            <span className="title_form">Register account TLU</span>
+            <span className='title_form'>Register account TLU</span>
           </Title>
 
-          <div className="register">
+          <div className='register'>
             <Form.Item
-              className="form_item"
-              name="firstName"
+              className='form_item'
+              name='firstName'
               rules={[
                 {
                   required: true,
-                  message: 'Please input your firstname!',
-                },
+                  message: 'Please input your firstname!'
+                }
               ]}
               hasFeedback
             >
-              <Input size="large" className="item_input_form" placeholder="First name" />
+              <Input size='large' className='item_input_form' placeholder='First name' />
             </Form.Item>
 
             <Form.Item
-              className="form_item"
-              name="lastName"
+              className='form_item'
+              name='lastName'
               rules={[
                 {
                   required: true,
-                  message: 'Please input your LastName!',
-                },
+                  message: 'Please input your LastName!'
+                }
               ]}
               hasFeedback
             >
-              <Input size="large" className="item_input_form" placeholder="Last name" />
+              <Input size='large' className='item_input_form' placeholder='Last name' />
             </Form.Item>
 
             <Form.Item
-              className="form_item"
-              name="code"
+              className='form_item'
+              name='code'
               rules={[
                 {
                   required: true,
                   pattern: new RegExp(`^[aA0-9]{5,6}`),
-                  message: 'Please input your student code!',
-                },
+                  message: 'Please input your student code!'
+                }
               ]}
               hasFeedback
             >
-              <Input size="large" className="item_input_form" placeholder="Code" />
+              <Input size='large' className='item_input_form' placeholder='Code' />
             </Form.Item>
 
             <Form.Item
-              className="form_item"
-              name="email"
+              className='form_item'
+              name='email'
               rules={[
                 {
                   required: true,
                   pattern: new RegExp(`^[A-Za-zd.0-9-]+@thanglong\.edu\.vn$`),
-                  message: 'Please input your username!',
-                },
+                  message: 'Please input your username!'
+                }
               ]}
               hasFeedback
             >
               <Input
                 prefix={<UserOutlined />}
-                size="large"
-                className="item_input_form"
-                placeholder="Email@thanglong.edu.vn"
+                size='large'
+                className='item_input_form'
+                placeholder='Email@thanglong.edu.vn'
               />
             </Form.Item>
 
             <Form.Item
-              className="form_item"
-              name="password"
+              className='form_item'
+              name='password'
               rules={[
                 {
                   required: true,
-                  message: 'Please input your password!',
-                },
+                  message: 'Please input your password!'
+                }
               ]}
             >
               <Input.Password
-                size="large"
+                size='large'
                 prefix={<LockOutlined />}
-                className="item_input_form"
-                placeholder="Password"
+                className='item_input_form'
+                placeholder='Password'
               />
             </Form.Item>
 
             <Form.Item
-              className="form_item"
-              name="phone"
+              className='form_item'
+              name='phone'
               rules={[
                 {
                   required: true,
                   message: 'Please input your phone!',
-                  pattern: new RegExp(checkPhones ? `[0-9]{10}` : `[0-9]{9}`),
-                },
+                  pattern: new RegExp(checkPhones ? `[0-9]{10}` : `[0-9]{9}`)
+                }
               ]}
               hasFeedback
             >
               <Input
-                size="large"
+                size='large'
                 maxLength={checkPhones ? 10 : 9}
-                className="item_input_form"
-                placeholder="Phone number"
+                className='item_input_form'
+                placeholder='Phone number'
                 onChange={(e) => checkPhone(e)}
               />
             </Form.Item>
           </div>
           <Form.Item>
-            <Button className="btn_form" loading={isPostingRegisterAPI} type="primary" htmlType="submit">
+            <Button className='btn_form' loading={isPostingRegisterAPI} type='primary' htmlType='submit'>
               Register
             </Button>
           </Form.Item>
@@ -247,19 +247,19 @@ const RegisterPage = () => {
         <Col style={{}}>
           <text>Avatar</text>
           <Upload
-            name="avatar"
-            listType="picture-card"
-            className="avatar-uploader"
+            name='avatar'
+            listType='picture-card'
+            className='avatar-uploader'
             showUploadList={false}
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
             onChange={handleChange}
           >
             {imageUrl ? (
               <img
                 src={imageUrl}
-                alt="avatar"
+                alt='avatar'
                 style={{
-                  width: '100%',
+                  width: '100%'
                 }}
               />
             ) : (
