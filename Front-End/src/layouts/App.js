@@ -22,7 +22,7 @@ const App = (props) => {
   useEffect(() => {
     if (cookies[STORAGEKEY.ACCESS_TOKEN]) {
       setHiddenMenu(true)
-      dispatch(userInfo({ email: 'a@thanglong.edu.vn' }))
+      dispatch(userInfo({ email: 'nhungnth@thanglong.edu.vn' }))
     }
   }, [])
   return (

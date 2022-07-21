@@ -6,13 +6,22 @@ import { useSelector } from 'react-redux'
 const { RangePicker } = DatePicker
 
 const FormRegistBorrow = () => {
+  const [form] = Form.useForm()
   // const
   const formatTime = 'YYYY-MM-DD HH:mm'
   // apiSelector
-  const apiSelector = useSelector((state) => state.userInfo)
-  console.log(apiSelector)
+  const { userData } = useSelector((state) => state.userInfo)
   // state
   const [valueRadio, setValueRadio] = useState(1)
+
+  const autoFillValue = () => {
+    form.setFieldsValue({
+      username: userData.firstName + ' ' + userData.lastName,
+      usercode: userData.code,
+      phone: `0${userData.phone}`,
+      email: userData.email
+    })
+  }
 
   const onChangeRadio = (e) => {
     setValueRadio(e.target.value)
@@ -23,7 +32,7 @@ const FormRegistBorrow = () => {
   }
 
   const getDisabledTime = () => {
-    const hours = []
+    const hours = [18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6]
     for (let i = 0; i < moment().hour(); i++) {
       hours.push(i)
     }
@@ -39,10 +48,11 @@ const FormRegistBorrow = () => {
     }
     return minutes
   }
+
   return (
     <>
       <Row className='form-create' xl={20}>
-        <Form className='form' name='form' layout='vertical'>
+        <Form className='form' name='form' layout='vertical' form={form}>
           <Col className='form__row' xl={24}>
             <Form.Item
               className='form__row-input'
@@ -53,8 +63,8 @@ const FormRegistBorrow = () => {
               <p className='textCode'>123465498741321</p>
             </Form.Item>
 
-            <Button type='primary' onClick={() => console.log('btn')}>
-              Auto Fill
+            <Button type='primary' onClick={() => autoFillValue()}>
+              Autofill Your Information
             </Button>
           </Col>
           <Col className='form__row' xl={24}>

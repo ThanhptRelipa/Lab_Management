@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, Input, Button, Typography } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { useMutation } from 'react-query'
@@ -10,6 +10,12 @@ import styles from './register.module.css'
 const { Title } = Typography
 
 const RegisterPage = () => {
+  const [checkPhones, setCheckPhones] = useState(false)
+
+  const checkPhone = (e) => {
+    setCheckPhones(e.target.value.charAt(0) === '0')
+  }
+
   const postRegister = async(data) => {
     return await post(`api/register`, data)
   }
@@ -85,7 +91,7 @@ const RegisterPage = () => {
             ]}
             hasFeedback
           >
-            <Input size='large' className={styles.item_input} placeholder='first name' />
+            <Input size='large' className={styles.item_input} placeholder='First name' />
           </Form.Item>
 
           <Form.Item
@@ -133,7 +139,7 @@ const RegisterPage = () => {
               prefix={<UserOutlined />}
               size='large'
               className={styles.item_input}
-              placeholder='email@thanglong.edu.vn'
+              placeholder='Email@thanglong.edu.vn'
             />
           </Form.Item>
 
@@ -162,17 +168,18 @@ const RegisterPage = () => {
               {
                 required: true,
                 message: 'Please input your phone!',
-                pattern: new RegExp(`[0-9]{10}`)
+                pattern: new RegExp(checkPhones ? `[0-9]{10}` : `[0-9]{9}`)
               }
             ]}
             hasFeedback
           >
             <Input
               size='large'
-              maxLength={10}
+              maxLength={checkPhones ? 10 : 9}
               addonBefore='(+84)'
               className={styles.item_input}
               placeholder='Phone number'
+              onChange={(e) => checkPhone(e)}
             />
           </Form.Item>
         </div>
