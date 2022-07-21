@@ -5,7 +5,7 @@ import { useMutation } from 'react-query'
 import { ToastContainer, toast } from 'react-toastify'
 
 import { post } from '../../api/BaseRequest'
-import styles from './register.module.css'
+import './register.css'
 
 const { Title } = Typography
 
@@ -57,10 +57,10 @@ const RegisterPage = () => {
   const onFinishFailed = (values) => {}
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.bg_img}></div>
+    <div className='wrapperRegister'>
+      <div className='bg_img_register'></div>
       <Form
-        className={styles.form_login}
+        className='form_register'
         name='basic'
         labelCol={{
           span: 8
@@ -76,12 +76,12 @@ const RegisterPage = () => {
         autoComplete='off'
       >
         <Title style={{ marginTop: 20 }}>
-          <span className={styles.title_form}>Register account TLU</span>
+          <span className='title_form'>Register account TLU</span>
         </Title>
 
-        <div className={styles.register}>
+        <div className='register'>
           <Form.Item
-            className={styles.form_item}
+            className='form_item'
             name='firstName'
             rules={[
               {
@@ -91,11 +91,11 @@ const RegisterPage = () => {
             ]}
             hasFeedback
           >
-            <Input size='large' className={styles.item_input} placeholder='First name' />
+            <Input size='large' className='item_input_form' placeholder='First name' />
           </Form.Item>
 
           <Form.Item
-            className={styles.form_item}
+            className='form_item'
             name='lastName'
             rules={[
               {
@@ -105,11 +105,11 @@ const RegisterPage = () => {
             ]}
             hasFeedback
           >
-            <Input size='large' className={styles.item_input} placeholder='Last name' />
+            <Input size='large' className='item_input_form' placeholder='Last name' />
           </Form.Item>
 
           <Form.Item
-            className={styles.form_item}
+            className='form_item'
             name='code'
             rules={[
               {
@@ -120,11 +120,11 @@ const RegisterPage = () => {
             ]}
             hasFeedback
           >
-            <Input size='large' className={styles.item_input} placeholder='Code' />
+            <Input size='large' className='item_input_form' placeholder='Code' />
           </Form.Item>
 
           <Form.Item
-            className={styles.form_item}
+            className='form_item'
             name='email'
             rules={[
               {
@@ -138,13 +138,13 @@ const RegisterPage = () => {
             <Input
               prefix={<UserOutlined />}
               size='large'
-              className={styles.item_input}
+              className='item_input_form'
               placeholder='Email@thanglong.edu.vn'
             />
           </Form.Item>
 
           <Form.Item
-            className={styles.form_item}
+            className='form_item'
             name='password'
             rules={[
               {
@@ -153,16 +153,11 @@ const RegisterPage = () => {
               }
             ]}
           >
-            <Input.Password
-              size='large'
-              prefix={<LockOutlined />}
-              className={styles.item_input}
-              placeholder='Password'
-            />
+            <Input.Password size='large' prefix={<LockOutlined />} className='item_input_form' placeholder='Password' />
           </Form.Item>
 
           <Form.Item
-            className={styles.form_item}
+            className='form_item'
             name='phone'
             rules={[
               {
@@ -176,15 +171,14 @@ const RegisterPage = () => {
             <Input
               size='large'
               maxLength={checkPhones ? 10 : 9}
-              addonBefore='(+84)'
-              className={styles.item_input}
+              className='item_input_form'
               placeholder='Phone number'
               onChange={(e) => checkPhone(e)}
             />
           </Form.Item>
         </div>
         <Form.Item>
-          <Button className={styles.item_input} loading={isPostingRegisterAPI} type='primary' htmlType='submit'>
+          <Button className='btn_form' loading={isPostingRegisterAPI} type='primary' htmlType='submit'>
             Register
           </Button>
         </Form.Item>

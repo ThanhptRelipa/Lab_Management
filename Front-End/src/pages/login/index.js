@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { post } from '../../api/BaseRequest'
 import { STORAGEKEY, setCookie } from '../../utils/storage'
 import 'react-toastify/dist/ReactToastify.css'
-import styles from './login.module.css'
+import './login.css'
 
 const { Title } = Typography
 
@@ -41,10 +41,10 @@ const LoginPage = () => {
   const onFinishFailed = (errorInfo) => {}
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.bg_img}></div>
+    <div className='wrapperLogin'>
+      <div className='bg_img_login'></div>
       <Form
-        className={styles.form_login}
+        className='form_login'
         name='basic'
         labelCol={{
           span: 8
@@ -59,28 +59,28 @@ const LoginPage = () => {
         onFinishFailed={onFinishFailed}
         autoComplete='off'
       >
-        <Title className={styles.title_form}>
-          <span className={styles.title_form}>LabRoom TLU</span>
+        <Title className='title_form'>
+          <span className='title_form'>LabRoom TLU</span>
         </Title>
 
-        <div className={styles.login}>
+        <div className='login'>
           <Form.Item
-            className={styles.form_item}
+            className='form_item'
             name='email'
             rules={[
               {
                 required: true,
                 pattern: new RegExp(`^[A-Za-zd.0-9-]+@thanglong\.edu\.vn$`),
-                message: 'Please input your username!'
+                message: 'Please input your email!'
               }
             ]}
             hasFeedback
           >
-            <Input prefix={<UserOutlined />} className={styles.item_input} placeholder='email@thanglong.edu.vn' />
+            <Input prefix={<UserOutlined />} className='item_input_form' placeholder='Email@thanglong.edu.vn' />
           </Form.Item>
 
           <Form.Item
-            className={styles.form_item}
+            className='form_item'
             name='password'
             rules={[
               {
@@ -90,11 +90,11 @@ const LoginPage = () => {
             ]}
             hasFeedback
           >
-            <Input.Password prefix={<LockOutlined />} className={styles.item_input} placeholder='Password' />
+            <Input.Password prefix={<LockOutlined />} className='item_input_form' placeholder='Password' />
           </Form.Item>
 
-          <Form.Item className={styles.form_option}>
-            <div className={styles.selectOption}>
+          <Form.Item className='form_option'>
+            <div className='selectOption'>
               <Form.Item name='remember' valuePropName='checked' noStyle>
                 <Checkbox>Remember me</Checkbox>
               </Form.Item>
@@ -103,7 +103,12 @@ const LoginPage = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button className={styles.item_input} loading={isPostingUserAPI} type='primary' htmlType='submit'>
+            <Button
+              className='btn_form'
+              loading={isPostingUserAPI}
+              type='primary'
+              htmlType='submit'
+            >
               Login
             </Button>
           </Form.Item>
