@@ -4,10 +4,10 @@ import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import cors from "cors";
 
-import user from "./routes/users";
 import category from "./routes/category";
 import product from "./routes/product";
-import { verifyToken } from "./middleware/tokenMiddle";
+import user from "./routes/users";
+import * as allRouter from "./routes";
 
 import dotenv from "dotenv";
 
@@ -49,6 +49,7 @@ mongoose
 
 //router
 
+// app.use("/api", (req, res, next) => next());
 app.use("/api", category);
 app.use("/api", product);
 app.use("/api", user);

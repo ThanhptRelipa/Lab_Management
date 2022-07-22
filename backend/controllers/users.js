@@ -7,24 +7,40 @@ export const getAllUsers = async (req, res, next) => {
     user,
   });
 };
+
 export const getUserInfo = async (req, res, next) => {
-  const { email } = req.query;
+  let token = null;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.split(" ")[0] === "Bearer"
+  )
+    token = req.headers.authorization.split(" ")[1];
+
+  const { _id } = jwt.decode(token, { complete: true }).payload;
   const user = await Users.findOne(
-    { email },
-    "-_id email firstName lastName phone code"
+    { _id },
+    "-_id firstName lastName code phone email"
   );
+
   return res.json({
     user,
   });
 };
-export const loginAuthen = async (req, res, next) => {
+
+/**
+ * Login function
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+export const loginAuthen = async (req, res) => {
   const userPost = { ...req.body };
   const user = await Users.findOne(
     {
       email: userPost.email,
       password: userPost.password,
     },
-    "_id firstName lastName code"
+    "_id firstName lastName code "
   );
   if (!user) {
     return res.status(401).send({ message: "Login failed!" });
@@ -33,7 +49,7 @@ export const loginAuthen = async (req, res, next) => {
     JSON.parse(JSON.stringify(user)),
     process.env.ACCESS_TOKEN_SECRET,
     {
-      expiresIn: "300s",
+      expiresIn: "3000s",
     }
   );
   return res.json({
@@ -43,10 +59,8 @@ export const loginAuthen = async (req, res, next) => {
 
 export const registerAuthen = async (req, res) => {
   const { email, password, phone, lastName, firstName, code } = req.body;
-  console.log(req.body);
   const existedUser = await Users.findOne({ email }, "-password");
   if (existedUser) {
-    console.log(existedUser);
     return res.status(401).send({ message: "Email existed!" });
   }
   try {

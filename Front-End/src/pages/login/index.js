@@ -12,9 +12,7 @@ import './login.css'
 const { Title } = Typography
 
 const LoginPage = () => {
-  const postUser = async(data) => {
-    return await post(`api/login`, data)
-  }
+  const postUser = (data) => post(`api/login`, data)
 
   const { mutate: postUserAPI, isLoading: isPostingUserAPI } = useMutation(postUser, {
     onSuccess: (data) => {
@@ -103,12 +101,7 @@ const LoginPage = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button
-              className='btn_form'
-              loading={isPostingUserAPI}
-              type='primary'
-              htmlType='submit'
-            >
+            <Button className='btn_form' loading={isPostingUserAPI} type='primary' htmlType='submit'>
               Login
             </Button>
           </Form.Item>

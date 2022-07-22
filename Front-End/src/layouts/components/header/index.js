@@ -5,10 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell, faEnvelope } from '@fortawesome/free-regular-svg-icons'
 import styles from './header.module.css'
 import { STORAGEKEY, removeCookie } from '../../../utils/storage'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../../redux/slices/UserInfoSlice'
 
 export default function Head() {
+  const dispatch = useDispatch()
   const handleLogout = async() => {
     await removeCookie(STORAGEKEY.ACCESS_TOKEN)
+    await dispatch(logout())
     window.location.href = '/login'
   }
 
