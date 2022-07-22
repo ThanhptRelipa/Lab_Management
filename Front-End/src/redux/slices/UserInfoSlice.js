@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { get } from '../../api/BaseRequest'
 
-export const userInfo = createAsyncThunk('api/userInfo', async(params) => {
-  const { user: data } = await get(`api/userInfo`, params)
+export const userInfo = createAsyncThunk('api/userInfo', async() => {
+  const { user: data } = await get(`api/userInfo`)
   return data
 })
 
@@ -14,6 +14,11 @@ const initialState = {
 const UserInfoSlice = createSlice({
   name: 'userInfo',
   initialState,
+  reducers: {
+    logout: (state) => {
+      state.userData = {}
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(userInfo.pending, (state) => {
       state.loading = true
@@ -27,5 +32,5 @@ const UserInfoSlice = createSlice({
     })
   }
 })
-
+export const { logout } = UserInfoSlice.actions
 export default UserInfoSlice.reducer

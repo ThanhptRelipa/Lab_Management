@@ -1,5 +1,6 @@
-const express = require('express');
-const { getAllCategory, createCategory } = require('../controllers/category');
+import express from "express";
+import * as CategoryController from "../controllers/category";
+
 const router = express.Router();
 
 // /**
@@ -9,13 +10,13 @@ const router = express.Router();
 //  *   Category:
 //  *    type: object
 //  *    properties:
-//  *      id: 
+//  *      id:
 //  *        type: string
 //  *        description: The auto-generated id of the product
-//  *      name: 
+//  *      name:
 //  *        type: string
 //  *        description: the name of product
-//  *    example: 
+//  *    example:
 //  *      id: _fdakfakhfa
 //  *      name: Category A
 //  */
@@ -27,10 +28,10 @@ const router = express.Router();
 //  *      response:
 //  *      '200':
 //  *      description:Sucsessfully response
-//  *  
+//  *
 //  */
-router.route('/category').get(getAllCategory)
+router.get("/category", CategoryController.getAllCategory);
 
-router.route('/category').post(createCategory)
+router.post("/category", CategoryController.createCategory);
 
-module.exports = router;
+export default router;

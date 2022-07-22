@@ -1,5 +1,5 @@
-const express = require('express');
-const { getAllProduct, createProduct, updateProduct, deleteProduct } = require('../controllers/product');
+import express from "express";
+import * as ProductController from "../controllers/product";
 
 const router = express.Router();
 
@@ -10,10 +10,10 @@ const router = express.Router();
  *   Product:
  *    type: object
  *    properties:
- *      id: 
+ *      id:
  *        type: string
  *        description: The auto-generated id of the product
- *      title: 
+ *      title:
  *        type: string
  *        description: the name of product
  *      desc:
@@ -22,22 +22,18 @@ const router = express.Router();
  *      price:
  *        type: number
  *        description: the price
- *      category: 
+ *      category:
  *          type: string
  *          description: the category
- *    example: 
+ *    example:
  *      id: _fdakfakhfa
  *      name: Product A
  *      description: Mo ta san pham
  *      price: 200
  */
 
+router.get("/products", ProductController.getAllProduct);
+router.post("/product", ProductController.createProduct);
+router.delete("/product/:id", ProductController.deleteProduct);
 
-router.route('/products').get(getAllProduct)
-router.route('/product').post(createProduct)
-router.route('/product/:id').put(updateProduct).delete(deleteProduct)
-
-
-
-
-module.exports = router
+export default router;

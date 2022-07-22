@@ -16,7 +16,7 @@ const FormRegistBorrow = () => {
 
   const autoFillValue = () => {
     form.setFieldsValue({
-      username: userData.firstName + ' ' + userData.lastName,
+      username: userData.lastName + ' ' + userData.firstName,
       usercode: userData.code,
       phone: `0${userData.phone}`,
       email: userData.email
