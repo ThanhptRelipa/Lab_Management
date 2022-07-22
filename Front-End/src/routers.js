@@ -5,13 +5,13 @@ import { STORAGEKEY } from '@/utils/storage'
 import { checkPermission } from '@/utils/JWT'
 import NotFoundRoute from './pages/404'
 import LoginPage from './pages/login'
-import profileContentPage from './pages/profile/profileContent'
 import LabSchedule from './layouts/components/Lab schedule'
 import Home from './pages/home'
 import ListDevices from './layouts/components/List devices'
 import CreateSchedule from './pages/user/create schedule'
 import RegisterBorrow from './pages/user/registerBorrow'
 import RegisterPage from './pages/register'
+import Profile from './pages/profile'
 // import { createBrowserHistory } from 'history'
 
 // const browserHistory = createBrowserHistory()
@@ -64,6 +64,17 @@ export const appRouter = [
     name: 'Home',
     path: '/',
     component: Home,
+    meta: {
+      role: '*',
+      isPrivate: true,
+      hidden: false,
+      child: false
+    }
+  },
+  {
+    name: 'Profile',
+    path: '/profile',
+    component: Profile,
     meta: {
       role: '*',
       isPrivate: true,
