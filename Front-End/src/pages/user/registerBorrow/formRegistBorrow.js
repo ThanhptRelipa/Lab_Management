@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { Col, Form, Row, Input, DatePicker, Button, Radio } from 'antd'
-import moment from 'moment'
 import { useSelector } from 'react-redux'
+import moment from 'moment'
+
+import './registerBorrow.css'
 
 const { RangePicker } = DatePicker
 
@@ -13,6 +15,7 @@ const FormRegistBorrow = () => {
   const { userData } = useSelector((state) => state.userInfo)
   // state
   const [valueRadio, setValueRadio] = useState(1)
+  const [dateRegister, setDateRegister] = useState([])
 
   const autoFillValue = () => {
     form.setFieldsValue({
@@ -28,7 +31,7 @@ const FormRegistBorrow = () => {
   }
 
   const onChange = (value, dateString) => {
-    console.log('Formatted Selected Time: ', dateString)
+    setDateRegister(dateString)
   }
 
   const getDisabledTime = () => {
@@ -49,10 +52,24 @@ const FormRegistBorrow = () => {
     return minutes
   }
 
+  const onFinish = (data) => {
+    const { registerTime, ...rest } = data
+    const newData = {
+      ...rest,
+      startTime: dateRegister[0],
+      endTime: dateRegister[1]
+    }
+    console.log(newData)
+  }
+
+  const onReset = () => {
+    form.resetFields()
+  }
+
   return (
     <>
       <Row className='form-create' xl={20}>
-        <Form className='form' name='form' layout='vertical' form={form}>
+        <Form className='form' name='form' layout='vertical' form={form} onFinish={onFinish}>
           <Col className='form__row' xl={24}>
             <Form.Item
               className='form__row-input'
@@ -121,8 +138,8 @@ const FormRegistBorrow = () => {
             <Col xl={10}>
               <Form.Item
                 className='form__row-input'
-                name='dayStart'
-                label='Day Start'
+                name='registerTime'
+                label='Register Time'
                 rules={[{ required: true, message: 'Please choose the date!' }]}
               >
                 <RangePicker
@@ -154,6 +171,14 @@ const FormRegistBorrow = () => {
               </Form.Item>
             </Col>
           </Col>
+          <Row xl={24} className='row-btn'>
+            <Button type='primary' htmlType='submit'>
+              Submit Form
+            </Button>
+            <Button type='primary' className='btn-spacing-left' danger htmlType='button' onClick={onReset}>
+              Reset Form
+            </Button>
+          </Row>
         </Form>
       </Row>
     </>

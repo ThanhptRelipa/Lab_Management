@@ -14,3 +14,7 @@
   height: 50px;
   border-radius: 23px !important;
 }
+
+.btn-spacing-left {
+  margin-left: 15px;
+}

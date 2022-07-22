@@ -17,7 +17,6 @@ const App = (props) => {
   const [hiddenMenu, setHiddenMenu] = useState(false)
   const dispatch = useDispatch()
   const { userData } = useSelector((state) => state.userInfo)
-  console.log(userData)
   const { renderRouter } = props
   useEffect(() => {
     if (cookies[STORAGEKEY.ACCESS_TOKEN]) {

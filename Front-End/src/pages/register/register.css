@@ -3,6 +3,7 @@
   width: 100vw;
   position: relative;
 }
+
 .bg_img_register {
   background-image: url("https://1.bp.blogspot.com/-ZS-og_UAZzU/YQyOFYM_yxI/AAAAAAAAGOM/x5bU_0GaePEbOb9spAwIyCkF7vccB5G6ACLcBGAsYHQ/w0/20-dieu-thu-vi-ve-truong-dai-hoc-thang-long.png");
   background-repeat: no-repeat;
@@ -15,11 +16,11 @@
   height: 100%;
   opacity: 0.5;
 }
+
 .form_register {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  flex-direction: column;
   position: absolute;
   z-index: 1;
   transform: translate(-50%, -50%);
@@ -29,6 +30,7 @@
   box-shadow: 8px 8px 8px #666;
   background-color: whitesmoke;
   min-height: 40vw;
+  min-width: 60vw;
   border-radius: 10px;
 }
 
@@ -39,7 +41,6 @@
 .register {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .form_item_register {
@@ -48,4 +49,11 @@
   margin-top: 20px;
   align-items: center;
   width: 500px;
+}
+
+.col-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
