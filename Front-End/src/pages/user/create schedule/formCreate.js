@@ -18,7 +18,7 @@ export default function FormCreate(props) {
   return (
     <>
       <Row>
-        <Col className='form-create' xl={20}>
+        <Col className='form-create' xl={22}>
           <Form
             className='form'
             name='form'
