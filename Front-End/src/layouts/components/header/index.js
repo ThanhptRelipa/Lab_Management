@@ -35,7 +35,7 @@ export default function Head() {
       <Dropdown overlay={menuUser} arrow>
         <Avatar
           className={styles.avatar}
-          src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg'
+          src='https://scontent.fhan3-4.fna.fbcdn.net/v/t39.30808-6/273464181_1953237191528399_5365515146976666502_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=174925&_nc_ohc=17zTzrqVuPIAX-fk5sX&_nc_ht=scontent.fhan3-4.fna&oh=00_AT9O_Xt3BM7YaxPaunqtbXIyZlG8VSxfnpPxkoXj824j-A&oe=62DF9B32'
         />
       </Dropdown>
     </div>
