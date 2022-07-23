@@ -2,7 +2,7 @@ import React from 'react'
 import { Card } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse, faAddressCard, faCalendar, faRegistered, faList } from '@fortawesome/free-solid-svg-icons'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import './siderUser.css'
 
 export default function SiderUser() {

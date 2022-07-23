@@ -3,7 +3,7 @@ import { Button } from 'antd'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import SiderUser from './siderUser/siderUser'
 import './sider.css'
-// import SiderAdmin from "./siderAdmin/siderAdmin";
+import SiderAdmin from './siderAdmin/siderAdmin'
 
 export default function SideBar() {
   return (
@@ -11,8 +11,8 @@ export default function SideBar() {
       <Button>
         <MenuFoldOutlined />
       </Button>
-      <SiderUser />
-      {/* <SiderAdmin />  */}
+      {/* <SiderUser /> */}
+      <SiderAdmin />
     </>
   )
 }
