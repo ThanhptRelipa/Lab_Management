@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { getCookie, STORAGEKEY } from '@/utils/storage'
+import { async } from '@firebase/util'
 
 const getUrlPrefix = () => '/'
 const instance = axios.create({
@@ -56,6 +57,15 @@ const del = async(url, data = {}) => {
   }
 }
 
+const patch = async(url, data = {}) => {
+  try {
+    const response = await instance.patch(getUrlPrefix() + url, data)
+    return _responseHandler(response)
+  } catch (error) {
+    _errorHandler(error)
+  }
+}
+
 const _responseHandler = (response, url) => {
   const data = response.data
   return data
@@ -68,4 +78,4 @@ const _errorHandler = (err) => {
   throw err
 }
 
-export { get, post, del, put }
+export { get, post, del, put, patch }

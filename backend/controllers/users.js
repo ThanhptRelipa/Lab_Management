@@ -19,7 +19,7 @@ export const getUserInfo = async (req, res, next) => {
   const { _id } = jwt.decode(token, { complete: true }).payload;
   const user = await Users.findOne(
     { _id },
-    "-_id firstName lastName code phone email"
+    "-_id firstName lastName code phone email avatarUrl"
   );
 
   return res.json({
@@ -58,11 +58,23 @@ export const loginAuthen = async (req, res) => {
 };
 
 export const registerAuthen = async (req, res) => {
-  const { email, password, phone, lastName, firstName, code } = req.body;
+  const avatarUrl = req.body.avatarUrl
+    ? req.body.avatarUrl
+    : "https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg";
+  const {
+    email,
+    password,
+    phone,
+    lastName,
+    firstName,
+    code,
+    // avatarUrl = "https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg",
+  } = req.body;
   const existedUser = await Users.findOne({ email }, "-password");
   if (existedUser) {
     return res.status(401).send({ message: "Email existed!" });
   }
+  console.log("avatarUrl", avatarUrl);
   try {
     await Users.create({
       email,
@@ -71,6 +83,7 @@ export const registerAuthen = async (req, res) => {
       lastName,
       firstName,
       code,
+      avatarUrl,
     });
   } catch (error) {
     console.log(error);
@@ -84,6 +97,26 @@ export const registerAuthen = async (req, res) => {
       lastName,
       firstName,
       code,
+      avatarUrl,
     },
   });
+};
+
+export const updateInfo = async (req, res) => {
+  let token = null;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.split(" ")[0] === "Bearer"
+  )
+    token = req.headers.authorization.split(" ")[1];
+
+  const { _id } = jwt.decode(token, { complete: true }).payload;
+
+  const { password, firstName, lastName, phone, avatarUrl } = req.body;
+
+  await Users.updateOne(
+    { _id },
+    { password, firstName, lastName, phone, avatarUrl }
+  );
+  return res.json({});
 };

@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
-import { Form, Input, Button, Typography, Col, Upload, Modal } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Form, Input, Button, Typography, Col, Upload } from 'antd'
 import { LockOutlined, UserOutlined, PlusOutlined, LoadingOutlined } from '@ant-design/icons'
 import { useMutation } from 'react-query'
 import { ToastContainer, toast } from 'react-toastify'
+import { storage } from '../../utils/firebase'
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 
 import { post } from '../../api/BaseRequest'
 import './register.css'
@@ -20,6 +22,8 @@ const RegisterPage = () => {
   const [loading, setLoading] = useState(false)
   const [imageUrl, setImageUrl] = useState()
   const [fileSource, setFileSource] = useState()
+  const [avatarUrl, setAvatarUrl] = useState('')
+
   const checkPhone = (e) => {
     setCheckPhones(e.target.value.charAt(0) === '0')
   }
@@ -54,22 +58,39 @@ const RegisterPage = () => {
     }
   })
 
+  useEffect(() => {
+    if (!fileSource) return
+    const storageRef = ref(storage, fileSource?.name)
+    const uploadAvatar = uploadBytesResumable(storageRef, fileSource)
+
+    uploadAvatar.on(
+      'state_changed',
+      (snapshot) => {},
+      (error) => {
+        console.log(error)
+      },
+      () => {
+        getDownloadURL(uploadAvatar.snapshot.ref).then((downloadURL) => {
+          setAvatarUrl(downloadURL)
+        })
+      }
+    )
+  }, [fileSource])
+
   const onFinish = (values) => {
     const registerData = {
       ...values,
       phone: values.phone.charAt(0) === '0' ? values.phone : `0${values.phone}`,
-      avatarSource: fileSource
+      avatarUrl: avatarUrl
     }
-    console.log(registerData)
+
     postRegisterAPI(registerData)
   }
 
   const onFinishFailed = (values) => {}
 
   const handleChange = (info) => {
-    console.log(info.file)
     setFileSource(info.file.originFileObj)
-    // Get this url from response in real world.
     getBase64(info.file.originFileObj, (url) => {
       setLoading(false)
       setImageUrl(url)

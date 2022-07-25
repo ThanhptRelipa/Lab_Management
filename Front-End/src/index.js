@@ -7,11 +7,11 @@ import router from './routers.js'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { CookiesProvider } from 'react-cookie'
 import AppLayout from './layouts/App'
-import 'antd/dist/antd.css'
 import { createBrowserHistory } from 'history'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './redux/store/store'
+import 'antd/dist/antd.css'
 
 const queryClient = new QueryClient()
 
