@@ -26,6 +26,7 @@ const usersSchema = mongoose.Schema({
     type: Number,
     require: true,
   },
+  avatarUrl: String,
 });
 
 // export default mongoose.model("Users", usersSchema);
