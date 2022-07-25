@@ -18,11 +18,10 @@ const App = (props) => {
   const dispatch = useDispatch()
   const { userData } = useSelector((state) => state.userInfo)
   const { renderRouter } = props
-
   useEffect(() => {
     if (cookies[STORAGEKEY.ACCESS_TOKEN]) {
       setHiddenMenu(true)
-      dispatch(userInfo({ email: 'nhungnth@thanglong.edu.vn' }))
+      dispatch(userInfo())
     }
   }, [])
   return (
@@ -39,7 +38,7 @@ const App = (props) => {
               <div className={styles.headerLeft}>
                 <text>Welcome,</text>
                 <text style={{ fontWeight: 'bold', marginLeft: 5 }} level={5}>
-                  {userData.lastName} {userData.firstName}
+                  {userData?.lastName} {userData?.firstName}
                 </text>
               </div>
               <Clock />

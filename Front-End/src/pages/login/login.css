@@ -67,3 +67,12 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.wrapperLoading {
+  z-index: 10;
+  position: relative;
+}
+
+.bgLoading {
+  background-color: aqua;
+}
