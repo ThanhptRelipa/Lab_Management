@@ -112,11 +112,37 @@ export const updateInfo = async (req, res) => {
 
   const { _id } = jwt.decode(token, { complete: true }).payload;
 
-  const { password, firstName, lastName, phone, avatarUrl } = req.body;
+  const { firstName, lastName, phone, avatarUrl } = req.body;
 
-  await Users.updateOne(
-    { _id },
-    { password, firstName, lastName, phone, avatarUrl }
-  );
+  await Users.updateOne({ _id }, { firstName, lastName, phone, avatarUrl });
+  return res.json({});
+};
+
+export const updatePassword = async (req, res) => {
+  let token = null;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.split(" ")[0] === "Bearer"
+  )
+    token = req.headers.authorization.split(" ")[1];
+
+  const { _id } = jwt.decode(token, { complete: true }).payload;
+
+  const { oldPassword, newPassword, reNewPassword } = req.body;
+
+  const checkPassword = Users.findOne({
+    password: oldPassword,
+  });
+
+  console.log(checkPassword);
+
+  if (!checkPassword) {
+    return res
+      .status(401)
+      .send({ message: "New password not match with old password" });
+  }
+
+  await Users.updateOne({ _id }, { password: newPassword });
+
   return res.json({});
 };
