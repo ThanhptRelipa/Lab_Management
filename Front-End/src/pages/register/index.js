@@ -41,7 +41,7 @@ const RegisterPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined
+        progress: undefined,
       })
       window.location.href = '/login'
     },
@@ -53,9 +53,9 @@ const RegisterPage = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined
+        progress: undefined,
       })
-    }
+    },
   })
 
   useEffect(() => {
@@ -118,17 +118,17 @@ const RegisterPage = () => {
         name='basic'
         encType='multipart/form-data'
         labelCol={{
-          span: 8
+          span: 8,
         }}
         wrapperCol={{
-          span: 16
+          span: 16,
         }}
         initialValues={{
-          remember: true
+          remember: true,
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        autoComplete='off'
+        autoComplete="off"
       >
         <Col className='col-left'>
           <Title style={{ marginTop: 20 }}>
@@ -269,7 +269,7 @@ const RegisterPage = () => {
         </Col>
       </Form>
       <ToastContainer
-        position='top-right'
+        position="top-right"
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
