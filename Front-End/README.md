@@ -1,4 +1,4 @@
-# Keiba React App
+# Lab_Management
 ## Available Scripts
 
 In the project directory, you can run:
