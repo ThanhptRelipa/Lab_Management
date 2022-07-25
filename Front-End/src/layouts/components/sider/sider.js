@@ -11,8 +11,8 @@ export default function SideBar() {
       <Button>
         <MenuFoldOutlined />
       </Button>
-      {/* <SiderUser /> */}
-      <SiderAdmin />
+      <SiderUser />
+      {/* <SiderAdmin /> */}
     </>
   )
 }

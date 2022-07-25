@@ -42,7 +42,7 @@ export default function List(props) {
   return (
     <>
       <Row>
-        <Col className='table-info' xl={22}>
+        <Col className='table-list' xl={22}>
           <Form>
             <Form.Item className='table-info-detail' label='Total equitmemt'>
               <Text>{data.length}</Text>
