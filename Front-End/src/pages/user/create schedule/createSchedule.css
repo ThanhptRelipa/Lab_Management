@@ -1,62 +1,67 @@
 /* Steps */
 .steps {
-    margin: auto;
-    margin-top: 30px;
+  margin: auto;
+  margin-top: 30px;
 }
 
 /* Form Create */
 .form-create {
-    margin: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    padding: 20px 30px;
-    border-radius: 20px;
-    background-color: #fff;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 20px 30px;
+  border-radius: 20px;
+  background-color: #fff;
 }
 
 .form {
-    width: 100%;
+  width: 100%;
 }
 
 .form__row,
 .form__button-double {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .form__button-single {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .form__row-input label {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .form__row-input input,
 .form__row-input textarea {
-    padding: 8px 10px;
-    border-radius: 6px;
+  padding: 8px 10px;
+  border-radius: 6px;
 }
 
 .form__row-input .ant-input:placeholder-shown {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .form__row-input .ant-picker {
-    border-radius: 6px;
+  border-radius: 6px;
 }
 
 .form__row-input .ant-picker input {
-    padding: 6px 10px;
+  padding: 6px 10px;
 }
 
 .form__row-input .ant-picker input:placeholder-shown {
-    font-weight: 500;
+  font-weight: 500;
 }
 /* css users*/
 .textCode {
-    margin-left: 10px;
-    font-weight: bold;
-    color: black;
+  margin-left: 10px;
+  font-weight: bold;
+  color: black;
+}
+
+.row_content {
+  justify-content: space-between;
+  align-items: center;
 }
