@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { getCookie, STORAGEKEY } from '@/utils/storage'
-import { async } from '@firebase/util'
 
 const getUrlPrefix = () => '/'
 const instance = axios.create({

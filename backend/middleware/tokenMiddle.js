@@ -8,16 +8,16 @@ export const verifyToken = async (req, res, next) => {
   )
     token = req.headers.authorization.split(" ")[1];
   if (!token) {
-    return res.status(400).send("Access denied");
+    return res.status(401).send("Access denied");
   }
   try {
     const verified = jwt.verify(token, process.env.SECRET_COOKIES);
     const currentTime = Date.now() / 1000;
     if (currentTime > verified.exp)
-      return res.status(400).send("Token timeout");
+      return res.status(401).send("Token timeout");
     next();
   } catch (error) {
     console.log(error);
-    return res.status(400).send("Invalid token");
+    return res.status(401).send("Invalid token");
   }
 };

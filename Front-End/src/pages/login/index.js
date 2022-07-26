@@ -20,10 +20,10 @@ const LoginPage = () => {
       setCookie(STORAGEKEY.ACCESS_TOKEN, data.accessToken)
       window.location.href = '/'
     },
-    onError: (errors) => {
-      toast.error(`Login Failed !`, {
+    onError: (error) => {
+      toast.error(`${error.response.data.message}`, {
         position: 'top-right',
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -72,8 +72,11 @@ const LoginPage = () => {
                   rules={[
                     {
                       required: true,
-                      pattern: new RegExp(`^[A-Za-zd.0-9-]+@thanglong\.edu\.vn$`),
                       message: 'Please input your email!'
+                    },
+                    {
+                      pattern: new RegExp(`[A-Za-zd.0-9-]+@thanglong\.edu\.vn`),
+                      message: 'Malformed @thanglong.edu.vn'
                     }
                   ]}
                   hasFeedback
@@ -90,7 +93,6 @@ const LoginPage = () => {
                       message: 'Please input your password!'
                     }
                   ]}
-                  hasFeedback
                 >
                   <Input.Password prefix={<LockOutlined />} className='item_input_form' placeholder='Password' />
                 </Form.Item>

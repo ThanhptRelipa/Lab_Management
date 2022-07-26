@@ -1,22 +1,56 @@
 import React, { useState } from 'react'
-import { Col, Form, Row, Input, DatePicker, Button, Radio } from 'antd'
-import { useSelector } from 'react-redux'
+import { Col, Form, Input, Row, DatePicker, Checkbox, Button, Radio, Space } from 'antd'
 import moment from 'moment'
-import { ToastContainer } from 'react-toastify'
+import { useDispatch, useSelector } from 'react-redux'
 
-import './registerBorrow.css'
+import { stepIncrement } from '../../../redux/slices/StepSlice'
+import './createSchedule.css'
+
+const { TextArea } = Input
 
 const { RangePicker } = DatePicker
 
-const FormRegistBorrow = () => {
-  const [form] = Form.useForm()
+const RoomRegisterForm = () => {
   // const
+  const [form] = Form.useForm()
   const formatTime = 'YYYY-MM-DD HH:mm'
-  // apiSelector
-  const { userData } = useSelector((state) => state.userInfo)
+  const dispatch = useDispatch()
+
+  const getDisabledTime = () => {
+    const hours = [18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6]
+    for (let i = 0; i < hours; i++) {
+      hours.push(i)
+    }
+    return hours
+  }
+
   // state
-  const [valueRadio, setValueRadio] = useState(1)
+  const [valueOffice, setValueOffice] = useState(1)
+  const [valueShare, setValueShare] = useState(false)
   const [dateRegister, setDateRegister] = useState([])
+  const [step] = useState(0)
+
+  // redux
+  const { userData } = useSelector((state) => state.userInfo)
+
+  // function
+  const onFinish = (values) => {
+    form.resetFields()
+    dispatch(stepIncrement(step))
+    // eslint-disable-next-line no-unused-vars
+    const { registerTime, ...rest } = values
+    const newData = {
+      ...rest,
+      startTime: dateRegister[0],
+      endTime: dateRegister[1],
+      shareLab: valueShare
+    }
+    console.log(newData)
+  }
+
+  const onReset = () => {
+    form.resetFields()
+  }
 
   const autoFillValue = () => {
     form.setFieldsValue({
@@ -27,51 +61,30 @@ const FormRegistBorrow = () => {
     })
   }
 
-  const onChangeRadio = (e) => {
-    setValueRadio(e.target.value)
-  }
-
-  const onChange = (value, dateString) => {
+  const onChangeRanger = (value, dateString) => {
     setDateRegister(dateString)
   }
 
-  const getDisabledTime = () => {
-    const hours = [18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6]
-    for (let i = 0; i < moment().hour(); i++) {
-      hours.push(i)
-    }
-    return hours
+  const onChangeOffice = (e) => {
+    setValueOffice(e.target.value)
   }
 
-  const getDisabledMinutes = (selectedHour) => {
-    const minutes = []
-    if (selectedHour === moment().hour()) {
-      for (var i = 0; i < moment().minute(); i++) {
-        minutes.push(i)
-      }
-    }
-    return minutes
-  }
-
-  const onFinish = (data) => {
-    // eslint-disable-next-line no-unused-vars
-    const { registerTime, ...rest } = data
-    const newData = {
-      ...rest,
-      startTime: dateRegister[0],
-      endTime: dateRegister[1]
-    }
-    console.log(newData)
-  }
-
-  const onReset = () => {
-    form.resetFields()
+  const onChangeShare = (e) => {
+    console.log(e.target.checked)
+    setValueShare(e.target.checked)
   }
 
   return (
     <>
       <Row className='form-create' xl={20}>
-        <Form className='form' name='form' layout='vertical' form={form} onFinish={onFinish}>
+        <Form
+          className='form'
+          name='form'
+          layout='vertical'
+          form={form}
+          onFinish={onFinish}
+          initialValues={{ office: 1 }}
+        >
           <Col className='form__row' xl={24}>
             <Form.Item
               className='form__row-input'
@@ -82,9 +95,17 @@ const FormRegistBorrow = () => {
               <p className='textCode'>123465498741321</p>
             </Form.Item>
 
-            <Button type='primary' onClick={() => autoFillValue()}>
-              Autofill Your Information
-            </Button>
+            <div>
+              <Space>
+                <Checkbox checked={valueShare} onChange={onChangeShare}>
+                  Share Lab
+                </Checkbox>
+
+                <Button type='primary' onClick={() => autoFillValue()}>
+                  Autofill Your Information
+                </Button>
+              </Space>
+            </div>
           </Col>
           <Col className='form__row' xl={24}>
             <Col xl={10}>
@@ -122,18 +143,32 @@ const FormRegistBorrow = () => {
                 <Input placeholder='Fill your phone...' />
               </Form.Item>
             </Col>
-            <Col xl={10} style={{ marginLeft: 20 }}>
+            <Col
+              xl={10}
+              style={{ marginLeft: 20, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+            >
               <Form.Item
                 className='form__row-input'
                 name='office'
                 label='Office'
                 rules={[{ required: true, message: 'Please input your code!' }]}
               >
-                <Radio.Group onChange={onChangeRadio} value={valueRadio}>
+                <Radio.Group onChange={onChangeOffice} defaultValue={valueOffice}>
                   <Radio value={1}>Student</Radio>
                   <Radio value={2}>Teacher</Radio>
                 </Radio.Group>
               </Form.Item>
+
+              {valueOffice === 2 && (
+                <Form.Item
+                  className='form__row-input'
+                  name='peopleAmout'
+                  label='Amount'
+                  rules={[{ required: true, message: 'Please input your amount!' }]}
+                >
+                  <Input />
+                </Form.Item>
+              )}
             </Col>
           </Col>
           <Col className='form__row' xl={24}>
@@ -148,14 +183,12 @@ const FormRegistBorrow = () => {
                   showTime={{
                     format: 'HH:mm'
                   }}
-                  defaultValue={moment()}
                   format={formatTime}
-                  onChange={onChange}
+                  onCalendarChange={onChangeRanger}
                   disabledDate={(current) => {
-                    return moment().add(-1, 'days') >= current || moment().add(1, 'month') <= current
+                    return moment().subtract(0, 'days') > current
                   }}
                   disabledHours={() => getDisabledTime()}
-                  disabledMinutes={(selectedHour) => getDisabledMinutes(selectedHour)}
                 />
               </Form.Item>
             </Col>
@@ -173,6 +206,18 @@ const FormRegistBorrow = () => {
               </Form.Item>
             </Col>
           </Col>
+          <Row className='form__row' xl={24}>
+            <Col xl={24}>
+              <Form.Item
+                className='form__row-input'
+                name='purpose'
+                label='Purpose'
+                rules={[{ required: true, message: 'Please choose the date!' }]}
+              >
+                <TextArea rows={4} placeholder='Fill your purpose......' />
+              </Form.Item>
+            </Col>
+          </Row>
           <Row xl={24} className='row-btn'>
             <Button type='primary' htmlType='submit'>
               Submit Form
@@ -183,19 +228,8 @@ const FormRegistBorrow = () => {
           </Row>
         </Form>
       </Row>
-      <ToastContainer
-        position='top-right'
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </>
   )
 }
 
-export default FormRegistBorrow
+export default RoomRegisterForm

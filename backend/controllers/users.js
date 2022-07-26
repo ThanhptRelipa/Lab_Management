@@ -49,11 +49,12 @@ export const loginAuthen = async (req, res) => {
     JSON.parse(JSON.stringify(user)),
     process.env.ACCESS_TOKEN_SECRET,
     {
-      expiresIn: "3000s",
+      expiresIn: "30000s",
     }
   );
   return res.json({
     accessToken,
+    message: "Login success !",
   });
 };
 
@@ -72,7 +73,7 @@ export const registerAuthen = async (req, res) => {
   } = req.body;
   const existedUser = await Users.findOne({ email }, "-password");
   if (existedUser) {
-    return res.status(401).send({ message: "Email existed!" });
+    return res.status(400).send({ message: "Email existed!" });
   }
   console.log("avatarUrl", avatarUrl);
   try {
@@ -128,21 +129,22 @@ export const updatePassword = async (req, res) => {
 
   const { _id } = jwt.decode(token, { complete: true }).payload;
 
-  const { oldPassword, newPassword, reNewPassword } = req.body;
+  const { oldPassword, newPassword } = req.body;
 
-  const checkPassword = Users.findOne({
+  const checkPassword = await Users.findOne({
+    _id,
     password: oldPassword,
   });
 
-  console.log(checkPassword);
-
   if (!checkPassword) {
     return res
-      .status(401)
+      .status(400)
       .send({ message: "New password not match with old password" });
   }
 
   await Users.updateOne({ _id }, { password: newPassword });
 
-  return res.json({});
+  return res.json({
+    message: "Change password success",
+  });
 };
